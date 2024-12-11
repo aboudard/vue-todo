@@ -1,22 +1,13 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-
+import { RouterView } from 'vue-router'
+import MenuView from './components/MenuView.vue'
 </script>
 
 <template>
   <header>
-    <div>
-      <h1>Vue 3 Vite</h1>
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
+    <MenuView />
   </header>
-
   <RouterView />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
