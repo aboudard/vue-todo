@@ -1,7 +1,11 @@
+<script setup lang="ts">
+import { useCounterStore } from '@/stores/counter';
+import { InputNumber } from 'primevue';
+    const counter = useCounterStore()
+</script>
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <h2>Counter with store</h2>
+  <div class="mb-3"><InputNumber size="small" showButtons v-model="counter.count" /></div>
 </template>
 
 <style>
