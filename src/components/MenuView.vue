@@ -13,6 +13,11 @@ const items = ref([
     icon: 'pi pi-star',
     route: '/about',
   },
+  {
+    label: 'Todos',
+    icon: 'pi pi-list',
+    route: '/todos',
+  }
 ]);
 const counter = useCounterStore()
 </script>
