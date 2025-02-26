@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { useCounterStore } from '@/stores/counter.store'
+import { useTodosStore } from '@/stores/todos.store'
+import { Badge } from 'primevue'
+import Menubar from 'primevue/menubar'
 import { ref } from 'vue'
-import Menubar from 'primevue/menubar';
-import { useCounterStore } from '@/stores/counter';
+const counter = useCounterStore()
+const todos = useTodosStore()
 const items = ref([
   {
     label: 'Home',
@@ -17,9 +21,9 @@ const items = ref([
     label: 'Todos',
     icon: 'pi pi-list',
     route: '/todos',
-  }
-]);
-const counter = useCounterStore()
+    badge: true,
+  },
+])
 </script>
 
 <template>
@@ -31,11 +35,12 @@ const counter = useCounterStore()
     </template>
     <template #item="{ item, props }">
       <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-            <a :href="href" v-bind="props.action" @click="navigate">
-                <span :class="item.icon" />
-                <span>{{ item.label }}</span>
-            </a>
-        </router-link>
+        <a :href="href" v-bind="props.action" @click="navigate">
+          <span :class="item.icon" />
+          <span>{{ item.label }}</span>
+          <Badge v-if="item.badge" :value="todos.completedTodosCount" />
+        </a>
+      </router-link>
     </template>
   </Menubar>
 </template>
