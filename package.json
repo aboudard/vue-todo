@@ -13,14 +13,17 @@
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "server": "json-server --watch db.json --port 3001",
-    "server:dev": "npm-run-all2 --parallel dev server"
+    "server:dev": "npm-run-all2 --parallel dev server",
+    "server:hello": "node server.cjs"
   },
   "dependencies": {
     "@primeuix/themes": "^1.0.0",
+    "@primevue/forms": "^4.3.2",
     "axios": "^1.7.9",
     "pinia": "^3.0.1",
     "primeicons": "^7.0.0",
-    "primevue": "^4.3.1",
+    "primevue": "^4.3.2",
+    "tailwindcss-primeui": "^0.5.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
@@ -38,7 +41,7 @@
     "eslint": "^9.20.1",
     "eslint-plugin-vue": "^9.32.0",
     "jsdom": "^25.0.1",
-    "json-server": "^1.0.0-beta.3",
+    "json-server": "^0.17.4",
     "npm-run-all2": "^7.0.2",
     "postcss": "^8.5.3",
     "prettier": "^3.5.2",

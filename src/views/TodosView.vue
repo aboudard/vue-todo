@@ -3,7 +3,7 @@ import { useTodosStore } from '@/stores/todos.store'
 import { Button, Checkbox, Column, DataTable } from 'primevue'
 import { computed, onMounted } from 'vue'
 export interface Todo {
-  id: number
+  id: string
   title: string
   completed: boolean
 }
@@ -25,6 +25,11 @@ const todosList = computed(() => store.todos)
 
 const callMe = () => {
   console.log('Hello')
+  setTodoCompleted()
+}
+
+const setTodoCompleted = () => {
+  store.setTodoCompleted('1')
 }
 
 onMounted(async () => {

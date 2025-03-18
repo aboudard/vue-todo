@@ -1,19 +1,24 @@
 {
-    "todos": [
-        {
-            "id": 1,
-            "title": "Learn Vue 3",
-            "completed": false
-        },
-        {
-            "id": 2,
-            "title": "Learn TypeScript",
-            "completed": false
-        },
-        {
-            "id": 3,
-            "title": "Learn Vite",
-            "completed": true
-        }
-    ]
+  "todos": [
+    {
+      "id": "1",
+      "title": "Learn Vue 3",
+      "completed": false
+    },
+    {
+      "id": "2",
+      "title": "Learn TypeScript",
+      "completed": false
+    },
+    {
+      "id": "3",
+      "title": "Learn Vite",
+      "completed": true
+    },
+    {
+      "title": "Validated",
+      "completed": true,
+      "id": "uZV05PQ"
+    }
+  ]
 }

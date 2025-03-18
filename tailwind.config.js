@@ -1,11 +1,14 @@
 /** @type {import('tailwindcss').Config} */
+import PrimeUI from 'tailwindcss-primeui'
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  important: true,
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        cyan: '#dc0e0e',
+      },
+    },
   },
-  plugins: [],
+  plugins: [PrimeUI],
 }

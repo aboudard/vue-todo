@@ -21,6 +21,11 @@ const router = createRouter({
       path: '/todos',
       name: 'todos',
       component: () => import('../views/TodosView.vue'),
+    },
+    {
+      path: '/todo-form',
+      name: 'todo-form',
+      component: () => import('../views/TodoFormView.vue'),
     }
   ],
 })

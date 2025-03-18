@@ -23,6 +23,11 @@ const items = ref([
     route: '/todos',
     badge: true,
   },
+  {
+    label: 'Todo Form',
+    icon: 'pi pi-plus',
+    route: '/todo-form',
+  }
 ])
 </script>
 
