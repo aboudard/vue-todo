@@ -38,6 +38,7 @@ app.use(ToastService)
 app.use(ConfirmationService)
 app.use(PrimeVue, {
   unstyled: false,
+  ripple: true,
   theme: {
     preset: MyPreset,
     options: {
