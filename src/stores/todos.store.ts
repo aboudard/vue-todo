@@ -24,16 +24,24 @@ export const useTodosStore = defineStore('todost', () => {
   })
 
   function setTodoCompleted(id: string) {
-    const todo = todos.value.find((todo) => todo.id === id)
-    if (todo) {
-      todo.completed = !todo.completed
-    }
+    todos.value = todos.value.map(todo =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    )
   }
 
   async function addTodo(todo: Partial<Todo>) {
     try {
       const todoNew = await axios.post('http://localhost:3001/todos', todo)
       todos.value = [...todos.value, todoNew.data]
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async function deleteTodo(id: string) {
+    try {
+      await axios.delete(`http://localhost:3001/todos/${id}`)
+      todos.value = todos.value.filter(todo => todo.id !== id)
     } catch (error) {
       console.error(error)
     }
@@ -46,5 +54,6 @@ export const useTodosStore = defineStore('todost', () => {
     fetchTodos,
     addTodo,
     setTodoCompleted,
+    deleteTodo
   }
 })

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useTodosStore } from '@/stores/todos.store'
-import { Button, Checkbox, Column, DataTable } from 'primevue'
+import { Button, Checkbox, Column, ConfirmDialog, DataTable, Toast, useConfirm } from 'primevue'
+import { useToast } from 'primevue/usetoast'
 import { computed, onMounted } from 'vue'
 export interface Todo {
   id: string
@@ -8,6 +9,9 @@ export interface Todo {
   completed: boolean
 }
 const store = useTodosStore()
+const toast = useToast()
+const confirm = useConfirm()
+
 /* const todos = ref<Todo[]>([
   {
     id: 1,
@@ -32,14 +36,51 @@ const setTodoCompleted = () => {
   store.setTodoCompleted('1')
 }
 
+const deleteTodo = async (id: string) => {
+  confirm.require({
+    header: 'Confirm Deletion',
+    icon: 'pi pi-exclamation-triangle',
+    message: 'Are you sure you want to delete this todo?',
+    rejectProps: {
+      label: 'Cancel',
+      icon: 'pi pi-times',
+      severity: 'secondary',
+    },
+    acceptProps: {
+      label: 'Delete',
+      icon: 'pi pi-trash',
+      severity: 'danger',
+    },
+    accept: async () => {
+      await store.deleteTodo(id)
+      toast.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Todo deleted successfully',
+        life: 2500,
+      })
+    },
+    reject: () => {
+      toast.add({
+        severity: 'warn',
+        summary: 'Cancelled',
+        detail: 'Todo deletion cancelled',
+        life: 2500
+      })
+    },
+  })
+}
+
 onMounted(async () => {
-  store.fetchTodos()
+  // store.fetchTodos()
   // const response = await axios.get<Todo[]>('http://localhost:3001/todos')
   // todos.value = response.data
 })
 </script>
 <template>
-  <div>
+  <Toast />
+  <ConfirmDialog />
+  <div class="p-3">
     <h1>Todo List</h1>
     <div>
       <Button size="small" label="count" v-on:click="callMe()" />
@@ -50,6 +91,15 @@ onMounted(async () => {
       <Column field="completed" header="Completed">
         <template #body="slotProps">
           <Checkbox v-model="slotProps.data.completed" binary />
+        </template>
+      </Column>
+      <Column header="Actions">
+        <template #body="slotProps">
+          <Button
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger"
+            @click.prevent="deleteTodo(slotProps.data.id)"
+          />
         </template>
       </Column>
     </DataTable>

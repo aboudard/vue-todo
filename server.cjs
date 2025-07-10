@@ -10,7 +10,7 @@ app.get('/hello', (req, res) => {
   res.json({ message: 'Hello World!' })
 })
 
-app.post('/pouf', (req, res) => {
+app.post('/hello', (req, res) => {
   res.send({ message: req.body.message })
 })
 

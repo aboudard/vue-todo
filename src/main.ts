@@ -5,15 +5,16 @@ import './assets/main.css'
 
 import App from './App.vue'
 import router from './router'
+import ConfirmationService from 'primevue/confirmationservice';
 
 import { definePreset } from '@primeuix/themes'
-import Aura from '@primeuix/themes/aura'
+import Lara from '@primeuix/themes/lara'
 import PrimeVue from 'primevue/config'
 import { ToastService } from 'primevue'
 
 const app = createApp(App)
 
-const MyPreset = definePreset(Aura, {
+const MyPreset = definePreset(Lara, {
   semantic: {
     primary: {
       50: '#642e9b',
@@ -34,6 +35,7 @@ const MyPreset = definePreset(Aura, {
 app.use(createPinia())
 app.use(router)
 app.use(ToastService)
+app.use(ConfirmationService)
 app.use(PrimeVue, {
   unstyled: false,
   theme: {

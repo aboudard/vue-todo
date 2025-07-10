@@ -1,4 +1,7 @@
 {
+  "hello": {
+    "message": "Hello from Vue 3"
+  },
   "todos": [
     {
       "id": "1",
@@ -11,14 +14,29 @@
       "completed": false
     },
     {
-      "id": "3",
-      "title": "Learn Vite",
-      "completed": true
-    },
-    {
       "title": "Validated",
       "completed": true,
       "id": "uZV05PQ"
+    },
+    {
+      "title": "To Delete",
+      "completed": true,
+      "id": "fM1mA3C"
+    },
+    {
+      "title": "*Autre",
+      "completed": true,
+      "id": "JO8NblW"
+    },
+    {
+      "title": "Planning",
+      "completed": true,
+      "id": "Wy48VMa"
+    },
+    {
+      "title": "gfvcff g gf gf",
+      "completed": true,
+      "id": "Du2cCEQ"
     }
   ]
 }

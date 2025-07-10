@@ -27,12 +27,12 @@ const items = ref([
     label: 'Todo Form',
     icon: 'pi pi-plus',
     route: '/todo-form',
-  }
+  },
 ])
 </script>
 
 <template>
-  <Menubar class="mb-3" :model="items">
+  <Menubar class="mb-3 bg-gray-300" :model="items">
     <template #start>
       <div class="p-d-flex p-ai-center">
         <span class="p-ml-2">Vue 3 Vite : {{ counter.count }}</span>
