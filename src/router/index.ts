@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  linkActiveClass: "bg-primary text-primary-content",
   routes: [
     {
       path: '/',
@@ -26,7 +27,7 @@ const router = createRouter({
       path: '/todo-form',
       name: 'todo-form',
       component: () => import('../views/TodoFormView.vue'),
-    }
+    },
   ],
 })
 

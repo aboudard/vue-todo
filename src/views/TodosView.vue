@@ -65,7 +65,7 @@ const deleteTodo = async (id: string) => {
         severity: 'warn',
         summary: 'Cancelled',
         detail: 'Todo deletion cancelled',
-        life: 2500
+        life: 2500,
       })
     },
   })
