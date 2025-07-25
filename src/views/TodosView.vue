@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { useTodosStore } from '@/stores/todos.store'
-import { Button, Checkbox, Column, ConfirmDialog, DataTable, Toast, useConfirm } from 'primevue'
+import { Badge, Button, Checkbox, Column, ConfirmDialog, DataTable, Toast, useConfirm } from 'primevue'
 import { useToast } from 'primevue/usetoast'
 import { computed, onMounted } from 'vue'
 export interface Todo {
-  id: string
+  id?: string
   title: string
   completed: boolean
+  dueDate?: Date // Optional property for due date
+  hours?: number // Optional property for hours spent on the todo
+  data: {
+    val: string
+    code: number
+  },
+  categories: string[]
 }
 const store = useTodosStore()
 const toast = useToast()
@@ -34,6 +41,10 @@ const callMe = () => {
 
 const setTodoCompleted = () => {
   store.setTodoCompleted('1')
+}
+
+const addHour = (id: string) => {
+  store.addHour(id)
 }
 
 const deleteTodo = async (id: string) => {
@@ -82,6 +93,7 @@ onMounted(async () => {
   <ConfirmDialog />
   <div class="p-3">
     <h1>Todo List</h1>
+    <p>Total Hours: <Badge :value="store.totalHours" /></p>
     <div>
       <Button size="small" label="count" v-on:click="callMe()" />
     </div>
@@ -100,6 +112,7 @@ onMounted(async () => {
             class="p-button-rounded p-button-danger"
             @click.prevent="deleteTodo(slotProps.data.id)"
           />
+          <Button icon="pi pi-plus" class="p-button-rounded p-button-info" @click="addHour(slotProps.data.id)" />
         </template>
       </Column>
     </DataTable>
