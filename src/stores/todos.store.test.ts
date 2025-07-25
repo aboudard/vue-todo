@@ -42,9 +42,29 @@ describe('useTodosStore - fetchTodos', () => {
   })
 
   it('adds a todo and updates the store', async () => {
-    const initialTodos = [{ id: '1', title: 'Test 1', completed: false }]
-    const newTodo = { title: 'New Todo', completed: false }
-    const createdTodo = { id: '2', title: 'New Todo', completed: false }
+    const initialTodos = [{
+      id: '1',
+      title: 'Test 1',
+      completed: false,
+      data: { val: '', code: 0 },
+      categories: [],
+      category: ''
+    }]
+    const newTodo = {
+      title: 'New Todo',
+      completed: false,
+      data: { val: '', code: 0 },
+      categories: [],
+      category: ''
+    }
+    const createdTodo = {
+      id: '2',
+      title: 'New Todo',
+      completed: false,
+      data: { val: '', code: 0 },
+      categories: [],
+      category: ''
+    }
     // @ts-expect-error: mockResolvedValue is not typed on axios.post in TypeScript
     axios.post.mockResolvedValue({ data: createdTodo })
 

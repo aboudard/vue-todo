@@ -6,37 +6,62 @@
     {
       "id": "1",
       "title": "Learn Vue 3",
-      "completed": false
+      "completed": false,
+      "hours": 2,
+      "data": {
+        "value": "vue stuff",
+        "code": 54
+      }
     },
     {
       "id": "2",
       "title": "Learn TypeScript",
-      "completed": false
+      "completed": false,
+      "hours": 3,
+      "data": {
+        "value": "typescript stuff",
+        "code": 54
+      }
     },
     {
       "title": "Validated",
       "completed": true,
-      "id": "uZV05PQ"
-    },
-    {
-      "title": "To Delete",
-      "completed": true,
-      "id": "fM1mA3C"
+      "id": "uZV05PQ",
+      "hours": 1,
+      "data": {
+        "value": "validated stuff",
+        "code": 54
+      }
     },
     {
       "title": "*Autre",
       "completed": true,
-      "id": "JO8NblW"
+      "id": "JO8NblW",
+      "hours": 2,
+      "data": {
+        "value": "autre stuff",
+        "code": 54
+      }
     },
     {
       "title": "Planning",
       "completed": true,
-      "id": "Wy48VMa"
+      "id": "Wy48VMa",
+      "hours": 3,
+      "data": {
+        "value": "planning stuff",
+        "code": 54
+      }
     },
     {
       "title": "gfvcff g gf gf",
       "completed": true,
-      "id": "Du2cCEQ"
+      "id": "Du2cCEQ",
+      "hours": 4,
+      "data": {
+        "value": "gfvcff g gf gf",
+        "code": 54
+      }
     }
   ]
 }

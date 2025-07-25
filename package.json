@@ -18,6 +18,10 @@
     "server:static": "http-server dist -p 3001"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
     "@primeuix/themes": "^1.0.0",
     "@primevue/auto-import-resolver": "4.3.6",
     "@primevue/forms": "^4.3.6",

@@ -4,6 +4,7 @@ import { useTodosStore } from '@/stores/todos.store'
 import { Badge } from 'primevue'
 import Menubar from 'primevue/menubar'
 import { ref } from 'vue'
+import SubComp from './sub/SubComp.vue'
 const counter = useCounterStore()
 const todos = useTodosStore()
 const items = ref([
@@ -11,6 +12,11 @@ const items = ref([
     label: 'Home',
     icon: 'pi pi-home',
     route: '/',
+  },
+  {
+    label: 'Template',
+    icon: 'pi pi-file',
+    route: '/template',
   },
   {
     label: 'About',
@@ -46,6 +52,9 @@ const items = ref([
           <Badge v-if="item.badge" :value="todos.completedTodosCount" />
         </a>
       </router-link>
+    </template>
+    <template #end>
+      <SubComp :label="'Sub Component'" />
     </template>
   </Menubar>
 </template>

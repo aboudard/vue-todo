@@ -3,11 +3,12 @@ import axios from 'axios'
 import { defineStore } from 'pinia'
 import { computed, ref, watchEffect } from 'vue'
 
-export const useTodosStore = defineStore('todost', () => {
+export const useTodosStore = defineStore('todostore', () => {
   const todos = ref<Todo[]>([])
 
   const todosCount = computed(() => todos.value.length)
   const completedTodosCount = computed(() => todos.value.filter((todo) => todo.completed).length)
+  const totalHours = computed(() => todos.value.reduce((sum, todo) => sum + (todo.hours || 0), 0))
 
   async function fetchTodos() {
     try {
@@ -29,6 +30,13 @@ export const useTodosStore = defineStore('todost', () => {
     )
   }
 
+  function addHour(id: string) {
+    const todo = todos.value.find((todo) => todo.id === id)
+    if (todo) {
+      todo.hours = (todo.hours || 0) + 1
+    }
+  }
+
   async function addTodo(todo: Partial<Todo>) {
     try {
       const todoNew = await axios.post('http://localhost:3001/todos', todo)
@@ -48,9 +56,11 @@ export const useTodosStore = defineStore('todost', () => {
   }
 
   return {
+    addHour,
     todos,
     todosCount,
     completedTodosCount,
+    totalHours,
     fetchTodos,
     addTodo,
     setTodoCompleted,
