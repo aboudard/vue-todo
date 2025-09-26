@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FancyStuff from '@/components/FancyStuff.vue';
 import AppBreadcrumb from '@/layout/AppBreadcrumb.vue';
+import { Button } from 'primevue';
 
 </script>
 
@@ -14,9 +15,9 @@ import AppBreadcrumb from '@/layout/AppBreadcrumb.vue';
         </template>
         <p>This is some fancy stuff!</p>
         <template #footer>
-          <span class="border border-blue-500 bg-green-500 text-white px-2 py-1 rounded">
+          <div class="border border-blue-500 bg-green-500 text-white px-2 m-2 py-1 rounded">
             Fancy Stuff Footer
-          </span>
+          </div>
         </template>
       </FancyStuff>
 
@@ -28,8 +29,9 @@ import AppBreadcrumb from '@/layout/AppBreadcrumb.vue';
       </FancyStuff>
 
       <FancyStuff>
-        <template v-slot:default="{ text, count }">
+        <template v-slot:default="{ text, count, myCall }">
           Third stuff {{ text }} - {{ count }}
+          <Button @click="myCall">Call from Third Stuff</Button>
         </template>
         <template v-slot:footer>
           <p>Poor footer</p>

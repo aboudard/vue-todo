@@ -1,13 +1,22 @@
 <script setup lang="ts">
 import { useTodosStore } from '@/stores/todos.store'
-import { Badge, Button, Checkbox, Column, ConfirmDialog, DataTable, Toast, useConfirm } from 'primevue'
+import {
+  Badge,
+  Button,
+  Checkbox,
+  Column,
+  ConfirmDialog,
+  DataTable,
+  Toast,
+  useConfirm,
+} from 'primevue'
 import { useToast } from 'primevue/usetoast'
 import { computed, onMounted } from 'vue'
 
 export interface Option {
-  key: string;
-  name: string;
-};
+  key: string
+  name: string
+}
 
 export interface Todo {
   id?: string
@@ -18,8 +27,8 @@ export interface Todo {
   data: {
     val: string
     code: number
-  },
-  categories: Option[],
+  }
+  categories: Option[]
   category: string
 }
 const store = useTodosStore()
@@ -96,33 +105,39 @@ onMounted(async () => {
 })
 </script>
 <template>
-  <Toast />
-  <ConfirmDialog />
-  <div class="p-3">
-    <h1>Todo List</h1>
-    <p>Total Hours: <Badge :value="store.totalHours" /></p>
-    <div>
-      <Button size="small" label="count" v-on:click="callMe()" />
+  <div>
+    <Toast />
+    <ConfirmDialog />
+    <div class="p-3">
+      <h1>Todo List</h1>
+      <p>Total Hours: <Badge :value="store.totalHours" /></p>
+      <div>
+        <Button size="small" label="count" v-on:click="callMe()" />
+      </div>
+      <DataTable selectionMode="single" :value="todosList" :paginator="true" :rows="5">
+        <Column field="id" header="ID"></Column>
+        <Column field="title" header="Title"></Column>
+        <Column field="completed" header="Completed">
+          <template #body="slotProps">
+            <Checkbox v-model="slotProps.data.completed" binary />
+          </template>
+        </Column>
+        <Column header="Actions">
+          <template #body="slotProps">
+            <Button
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-danger"
+              @click.prevent="deleteTodo(slotProps.data.id)"
+            />
+            <Button
+              icon="pi pi-plus"
+              class="p-button-rounded p-button-info"
+              @click="addHour(slotProps.data.id)"
+            />
+          </template>
+        </Column>
+      </DataTable>
     </div>
-    <DataTable selectionMode="single" :value="todosList" :paginator="true" :rows="5">
-      <Column field="id" header="ID"></Column>
-      <Column field="title" header="Title"></Column>
-      <Column field="completed" header="Completed">
-        <template #body="slotProps">
-          <Checkbox v-model="slotProps.data.completed" binary />
-        </template>
-      </Column>
-      <Column header="Actions">
-        <template #body="slotProps">
-          <Button
-            icon="pi pi-trash"
-            class="p-button-rounded p-button-danger"
-            @click.prevent="deleteTodo(slotProps.data.id)"
-          />
-          <Button icon="pi pi-plus" class="p-button-rounded p-button-info" @click="addHour(slotProps.data.id)" />
-        </template>
-      </Column>
-    </DataTable>
   </div>
 </template>
 <style scoped></style>

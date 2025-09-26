@@ -3,7 +3,7 @@
     <template v-if="$slots.header">
       <slot name="header"></slot>
     </template>
-    <slot :text="theMessage" count="12"></slot>
+    <slot :text="theMessage" count="12" :myCall="myCall"></slot>
     <slot name="footer">
       Empty Footer
     </slot>
@@ -14,4 +14,7 @@
 import { ref } from 'vue'
 
 const theMessage = ref('Hello from FancyStuff!')
+const myCall = () => {
+  alert('Called from FancyStuff!')
+}
 </script>

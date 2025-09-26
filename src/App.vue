@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { ProgressSpinner } from 'primevue'
+import { onMounted, provide } from 'vue'
 import { RouterView } from 'vue-router'
 import MenuView from './components/MenuView.vue'
+import { useAppStore } from './stores/app.store'
 import { useTodosStore } from './stores/todos.store'
 const store = useTodosStore()
-import { provide } from 'vue'
+const appStore = useAppStore()
 provide('appConfig', { apiUrl: 'http://localhost:3000' })
 onMounted(async () => {
   store.fetchTodos()
@@ -17,7 +19,17 @@ onMounted(async () => {
   <header>
     <MenuView />
   </header>
+  <ProgressSpinner v-if="appStore.isLoading" class="overlay" />
   <RouterView />
 </template>
 
-<style scoped></style>
+<style scoped>
+.overlay {
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  width: 6rem !important;
+  height: 6rem !important;
+  z-index: 100; /* this seems to work for me but may need to be higher*/
+}
+</style>

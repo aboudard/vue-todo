@@ -1,6 +1,7 @@
 import { createPinia } from 'pinia'
 import 'primeicons/primeicons.css'
 import { createApp } from 'vue'
+import './assets/base.css'
 import './assets/main.css'
 
 import App from './App.vue'
@@ -8,13 +9,14 @@ import router from './router'
 import ConfirmationService from 'primevue/confirmationservice'
 
 import { definePreset } from '@primeuix/themes'
-import Lara from '@primeuix/themes/lara'
+import Material from '@primeuix/themes/lara'
 import PrimeVue from 'primevue/config'
 import { ToastService } from 'primevue'
+import { useAppStore } from './stores/app.store'
 
 const app = createApp(App)
 
-const MyPreset = definePreset(Lara, {
+const MyPreset = definePreset(Material, {
   semantic: {
     primary: {
       50: '#ede7f6',

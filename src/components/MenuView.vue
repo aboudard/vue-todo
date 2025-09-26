@@ -34,6 +34,11 @@ const items = ref([
     icon: 'pi pi-plus',
     route: '/todo-form',
   },
+  {
+    label: 'Popover',
+    icon: 'pi pi-info-circle',
+    route: '/popover',
+  },
 ])
 </script>
 

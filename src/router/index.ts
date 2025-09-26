@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { setupLoaderGuard } from '@/guards/loader.guard'
 
 type AppRoute = RouteRecordRaw & {
   meta?: {
@@ -43,6 +44,11 @@ const appRoutes: AppRoute[] = [
     name: 'todo-form',
     component: () => import('../views/TodoFormView.vue'),
   },
+  {
+    path: '/popover',
+    name: 'popover',
+    component: () => import('../views/PopoverView.vue'),
+  }
 ]
 
 const router = createRouter({
@@ -50,5 +56,6 @@ const router = createRouter({
   linkActiveClass: 'bg-primary text-primary-content',
   routes: appRoutes,
 })
+setupLoaderGuard(router);
 
 export default router
