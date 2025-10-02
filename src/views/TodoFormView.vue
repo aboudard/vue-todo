@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import ArraysInput from '@/components/ArraysInput.vue'
 import BaseInput from '@/components/BaseInput.vue'
+import type { Todo } from '@/models/todo'
 import { useTodosStore } from '@/stores/todos.store'
 import { Form, type FormSubmitEvent } from '@primevue/forms'
 import { zodResolver } from '@primevue/forms/resolvers/zod'
-import { Button, InputText, Message, Toast } from 'primevue'
+import { Button, InputText, Message, Toast, ToggleSwitch } from 'primevue'
 import DatePicker from 'primevue/datepicker'
 import { useToast } from 'primevue/usetoast'
-import { ref, reactive, useTemplateRef } from 'vue'
+import { ref, useTemplateRef, watchEffect } from 'vue'
 import { z } from 'zod'
-import type { Todo } from './TodosView.vue'
 
 const toast = useToast()
 const store = useTodosStore()
@@ -22,8 +22,11 @@ const categories = ref([
   { name: 'Research', key: 'R' },
 ])
 
+const logChange = (value: any) => {
+  console.log('ToggleSwitch changed to:', value)
+}
 
-const initialValues = reactive<Todo>({
+const initialValues = ref<Todo>({
   title: '',
   dueDate: new Date(),
   data: {
@@ -32,8 +35,19 @@ const initialValues = reactive<Todo>({
   },
   hours: 6,
   completed: false,
+  trulyAwesome: false,
+  awesome: true,
   categories: [],
   category: '',
+})
+
+// const trulyAwesome = computed(() => initialValues.value.awesome && initialValues.value.completed)
+
+watchEffect(() => {
+  // listen only to initialValues.awesome changes and completed
+  console.log('Awesome changed to:', initialValues.value.awesome)
+  console.log('Completed changed to:', initialValues.value.completed)
+  initialValues.value.trulyAwesome = initialValues.value.awesome && initialValues.value.completed
 })
 
 const resolver = ref(
@@ -43,7 +57,9 @@ const resolver = ref(
       dueDate: z.date().min(new Date(), { message: 'Due date must be in the future.' }),
       hours: z.number().min(0, { message: 'Hours must be a positive number.' }),
       completed: z.literal(true),
-      categories: z.array(z.string()).min(1, { message: 'At least one category must be selected.' }),
+      categories: z
+        .array(z.string())
+        .min(1, { message: 'At least one category must be selected.' }),
     }),
   ),
 )
@@ -79,8 +95,8 @@ const onFormSubmit = async (e: FormSubmitEvent) => {
     life: 3000,
   })
   // Reset form
-  initialValues.title = ''
-  initialValues.dueDate = new Date()
+  initialValues.value.title = ''
+  initialValues.value.dueDate = new Date()
 }
 </script>
 <template>
@@ -112,19 +128,38 @@ const onFormSubmit = async (e: FormSubmitEvent) => {
             }}</Message>
           </div>
           <div class="flex flex-col gap-1">
-            <DatePicker v-model="initialValues.dueDate" name="dueDate" placeholder="Due Date" fluid />
+            <DatePicker
+              v-model="initialValues.dueDate"
+              name="dueDate"
+              placeholder="Due Date"
+              fluid
+            />
             <Message v-if="$form.dueDate?.invalid" severity="error" size="small" variant="simple">{{
               $form.dueDate.error?.message
             }}</Message>
+          </div>
+          <div class="flex flex-col gap-1">
+            <ToggleSwitch
+              @change="(e) => logChange(e.target?.checked)"
+              v-model="initialValues.awesome"
+              name="awesome"
+            />
+          </div>
+          <div class="flex flex-col gap-1">
+            <ToggleSwitch v-model="initialValues.trulyAwesome" name="trulyAwesome" />
           </div>
           <div class="flex flex-col gap-1">
             <BaseInput
               v-model:completed="initialValues.completed"
               v-model:hours="initialValues.hours"
             />
-            <Message v-if="$form.completed?.invalid" severity="error" size="small" variant="simple">{{
-              $form.completed.error?.message
-            }}</Message>
+            <Message
+              v-if="$form.completed?.invalid"
+              severity="error"
+              size="small"
+              variant="simple"
+              >{{ $form.completed.error?.message }}</Message
+            >
             <Message v-if="$form.hours?.invalid" severity="error" size="small" variant="simple">{{
               $form.hours.error?.message
             }}</Message>
@@ -136,9 +171,13 @@ const onFormSubmit = async (e: FormSubmitEvent) => {
               v-model:selectedItems="initialValues.categories"
             />
           </div>
-          <Message v-if="$form.categories?.invalid" severity="error" size="small" variant="simple">{{
-            $form.categories.error?.message
-          }}</Message>
+          <Message
+            v-if="$form.categories?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ $form.categories.error?.message }}</Message
+          >
           <div>
             {{ $form.data }}
           </div>

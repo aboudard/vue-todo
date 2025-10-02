@@ -1,5 +1,17 @@
 @import 'primeicons/primeicons.css';
+@import 'tailwindcss';
+@import 'tailwindcss-primeui';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-sky-50: #fdfce9;
+  --color-sky-100: #fcfac5;
+  --color-sky-200: #faf08e;
+  --color-sky-300: #f7e14d;
+  --color-sky-400: #f3ce1c;
+  --color-sky-500: #e3b50f;
+  --color-sky-600: #c48d0a;
+  --color-sky-700: #9c650c;
+  --color-sky-800: #815012;
+  --color-sky-900: #6e4115;
+  --color-sky-950: #402208;
+}

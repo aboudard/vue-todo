@@ -1,36 +1,9 @@
 <script setup lang="ts">
 import { useTodosStore } from '@/stores/todos.store'
-import {
-  Badge,
-  Button,
-  Checkbox,
-  Column,
-  ConfirmDialog,
-  DataTable,
-  Toast,
-  useConfirm,
-} from 'primevue'
+import { Badge, Button, Checkbox, Column, DataTable, Toast, useConfirm } from 'primevue'
 import { useToast } from 'primevue/usetoast'
 import { computed, onMounted } from 'vue'
 
-export interface Option {
-  key: string
-  name: string
-}
-
-export interface Todo {
-  id?: string
-  title: string
-  completed: boolean
-  dueDate?: Date // Optional property for due date
-  hours?: number // Optional property for hours spent on the todo
-  data: {
-    val: string
-    code: number
-  }
-  categories: Option[]
-  category: string
-}
 const store = useTodosStore()
 const toast = useToast()
 const confirm = useConfirm()
@@ -107,7 +80,6 @@ onMounted(async () => {
 <template>
   <div>
     <Toast />
-    <ConfirmDialog />
     <div class="p-3">
       <h1>Todo List</h1>
       <p>Total Hours: <Badge :value="store.totalHours" /></p>

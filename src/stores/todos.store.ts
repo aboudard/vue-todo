@@ -1,4 +1,4 @@
-import type { Todo } from '@/views/TodosView.vue'
+import type { Todo } from '@/models/todo'
 import axios from 'axios'
 import { defineStore } from 'pinia'
 import { computed, ref, watchEffect } from 'vue'

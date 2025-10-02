@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ProgressSpinner } from 'primevue'
+import { ConfirmDialog, ProgressSpinner } from 'primevue'
 import { onMounted, provide } from 'vue'
 import { RouterView } from 'vue-router'
 import MenuView from './components/MenuView.vue'
@@ -20,7 +20,8 @@ onMounted(async () => {
     <MenuView />
   </header>
   <ProgressSpinner v-if="appStore.isLoading" class="overlay" />
-  <RouterView />
+  <RouterView> </RouterView>
+  <ConfirmDialog />
 </template>
 
 <style scoped>

@@ -1,6 +1,5 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import { setupLoaderGuard } from '@/guards/loader.guard'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
 type AppRoute = RouteRecordRaw & {
   meta?: {
@@ -12,8 +11,8 @@ const appRoutes: AppRoute[] = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
-    children: []
+    component: () => import('../views/HomeView.vue'),
+    children: [],
   },
   {
     path: '/template',
@@ -48,7 +47,7 @@ const appRoutes: AppRoute[] = [
     path: '/popover',
     name: 'popover',
     component: () => import('../views/PopoverView.vue'),
-  }
+  },
 ]
 
 const router = createRouter({
@@ -56,6 +55,6 @@ const router = createRouter({
   linkActiveClass: 'bg-primary text-primary-content',
   routes: appRoutes,
 })
-setupLoaderGuard(router);
+setupLoaderGuard(router)
 
 export default router
