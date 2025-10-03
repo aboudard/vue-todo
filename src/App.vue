@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { ConfirmDialog, ProgressSpinner } from 'primevue'
 import { onMounted, provide } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { RouterView } from 'vue-router'
 import MenuView from './components/MenuView.vue'
 import { useAppStore } from './stores/app.store'
 import { useTodosStore } from './stores/todos.store'
+
+const { t } = useI18n()
 const store = useTodosStore()
 const appStore = useAppStore()
 provide('appConfig', { apiUrl: 'http://localhost:3000' })
@@ -17,7 +20,7 @@ onMounted(async () => {
 
 <template>
   <header>
-    <MenuView />
+    <MenuView :title="t('title')" />
   </header>
   <ProgressSpinner v-if="appStore.isLoading" class="overlay" />
   <RouterView> </RouterView>

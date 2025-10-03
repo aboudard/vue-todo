@@ -9,13 +9,26 @@ import Material from '@primeuix/themes/material'
 import { ToastService } from 'primevue'
 import PrimeVue from 'primevue/config'
 import ConfirmationService from 'primevue/confirmationservice'
+import { createI18n } from 'vue-i18n'
 import App from './App.vue'
 import { myPreset } from './my-preset'
 import router from './router'
 
 const app = createApp(App)
-
 const MyPreset = definePreset(Material, myPreset)
+const i18n = createI18n({
+  legacy: false,
+  locale: 'fr',
+  fallbackLocale: 'en',
+  messages: {
+    en: {
+      title: 'The Vue App',
+    },
+    fr: {
+      title: "L'application Vue",
+    },
+  },
+})
 
 app.use(createPinia())
 app.use(router)
@@ -31,5 +44,6 @@ app.use(PrimeVue, {
     },
   },
 })
+app.use(i18n)
 
 app.mount('#app')

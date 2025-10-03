@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { useCounterStore } from '@/stores/counter.store'
 import { useTodosStore } from '@/stores/todos.store'
-import { Badge } from 'primevue'
+import { Badge, Select } from 'primevue'
 import Menubar from 'primevue/menubar'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import SubComp from './sub/SubComp.vue'
+
+defineProps<{ title: string }>()
 const counter = useCounterStore()
 const todos = useTodosStore()
 const items = ref([
@@ -45,13 +48,18 @@ const items = ref([
     route: '/prime-forms',
   },
 ])
+const { locale } = useI18n()
+const selectedLang = ref(locale.value)
+const changeLang = () => {
+  locale.value = selectedLang.value
+}
 </script>
 
 <template>
   <Menubar class="mb-3 bg-gray-300" :model="items">
     <template #start>
       <div class="p-d-flex p-ai-center">
-        <span class="p-ml-2">Vue 3 Vite : {{ counter.count }}</span>
+        <span class="p-ml-2">{{ title }} : {{ counter.count }}</span>
       </div>
     </template>
     <template #item="{ item, props }">
@@ -64,6 +72,17 @@ const items = ref([
       </router-link>
     </template>
     <template #end>
+      <Select
+        v-model="selectedLang"
+        @change="changeLang"
+        class="mr-3"
+        option-value="code"
+        optionLabel="name"
+        :options="[
+          { name: 'EN', code: 'en' },
+          { name: 'FR', code: 'fr' },
+        ]"
+      />
       <SubComp :label="'Sub Component'" />
     </template>
   </Menubar>
