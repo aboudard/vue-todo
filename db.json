@@ -63,5 +63,39 @@
         "code": 54
       }
     }
+  ],
+  "translations": [
+    {
+      "page": "home",
+      "language": "en",
+      "data": {
+        "title": "Home",
+        "description": "Welcome to the home page"
+      }
+    },
+    {
+      "page": "home",
+      "language": "fr",
+      "data": {
+        "title": "Accueil",
+        "description": "Bienvenue sur la page d'accueil"
+      }
+    },
+    {
+      "page": "about",
+      "language": "en",
+      "data": {
+        "title": "About",
+        "description": "This is the about page"
+      }
+    },
+    {
+      "page": "about",
+      "language": "fr",
+      "data": {
+        "title": "À propos",
+        "description": "Ceci est la page à propos"
+      }
+    }
   ]
 }

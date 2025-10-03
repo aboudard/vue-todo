@@ -48,6 +48,11 @@ const appRoutes: AppRoute[] = [
     name: 'popover',
     component: () => import('../views/PopoverView.vue'),
   },
+  {
+    path: '/prime-forms',
+    name: 'prime-forms',
+    component: () => import('../views/PrimeForms.vue'),
+  },
 ]
 
 const router = createRouter({
