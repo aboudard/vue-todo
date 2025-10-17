@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { Button } from 'primevue'
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -46,20 +47,20 @@ watch(
 <template>
   <div class="layout-breadcrumb-container">
     <nav class="layout-breadcrumb">
-      <ol>
-        <li>
-          <i :class="[home.icon, 'cursor-pointer']" @click="navigate"></i>
-        </li>
-        <li><i class="pi pi-angle-right"></i></li>
+      <div>
+        <span>
+          <i :class="[home.icon, 'cursor-pointer']" @cspanck="navigate"></i>
+        </span>
+        <span><i class="pi pi-angle-right"></i></span>
         <template v-for="(item, index) in breadcrumbRoutes" :key="index">
-          <li>
+          <span>
             <span> {{ item.label }}</span>
-          </li>
-          <li v-if="index !== breadcrumbRoutes.length - 1">
+          </span>
+          <span v-if="index !== breadcrumbRoutes.length - 1">
             <i class="pi pi-angle-right"></i>
-          </li>
+          </span>
         </template>
-      </ol>
+      </div>
     </nav>
 
     <div class="layout-breadcrumb-buttons">

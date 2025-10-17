@@ -60,6 +60,7 @@ const resolver = ref(
       categories: z
         .array(z.string())
         .min(1, { message: 'At least one category must be selected.' }),
+      category: z.string().min(1, { message: 'A category must be selected.' })
     }),
   ),
 )
@@ -102,7 +103,7 @@ const onFormSubmit = async (e: FormSubmitEvent) => {
 <template>
   <div>
     <Toast />
-    <div class="p-3">
+    <div class="p-3 flex gap-3 justify-center">
       <div>
         <h1>Todo Form</h1>
       </div>
@@ -129,6 +130,9 @@ const onFormSubmit = async (e: FormSubmitEvent) => {
           </div>
           <div class="flex flex-col gap-1">
             <DatePicker
+              dataType="string"
+              updateModelType="date"
+              dateFormat="dd/mm/yy"
               v-model="initialValues.dueDate"
               name="dueDate"
               placeholder="Due Date"

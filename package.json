@@ -24,16 +24,16 @@
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@primeuix/themes": "^1.2.1",
     "@primeuix/utils": "^0.6.1",
-    "@primevue/auto-import-resolver": "4.3.6",
-    "@primevue/forms": "^4.3.6",
+    "@primevue/auto-import-resolver": "4.4.0",
+    "@primevue/forms": "^4.4.0",
     "axios": "^1.12.2",
-    "pinia": "^3.0.1",
+    "pinia": "^3.0.3",
     "primeicons": "^7.0.0",
-    "primevue": "^4.3.6",
-    "vue": "^3.5.13",
+    "primevue": "^4.4.0",
+    "vue": "^3.5.22",
     "vue-i18n": "^11.1.12",
-    "vue-router": "^4.5.0",
-    "zod": "3.23"
+    "vue-router": "^4.5.1",
+    "zod": "3.23.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.11",
@@ -54,13 +54,13 @@
     "json-server": "^0.17.4",
     "npm-run-all2": "^7.0.2",
     "postcss": "^8.5.3",
-    "prettier": "^3.5.2",
-    "tailwindcss": "^4.1.11",
+    "prettier": "^3.6.2",
+    "tailwindcss": "^4.1.14",
     "tailwindcss-primeui": "^0.6.1",
     "typescript": "~5.7.3",
     "vite": "^6.1.0",
-    "vite-plugin-vue-devtools": "^7.7.2",
-    "vitest": "^3.0.7",
-    "vue-tsc": "^2.2.4"
+    "vite-plugin-vue-devtools": "^7.7.7",
+    "vitest": "^3.2.4",
+    "vue-tsc": "^3.1.0"
   }
 }

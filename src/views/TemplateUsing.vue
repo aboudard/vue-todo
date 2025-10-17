@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import FancyStuff from '@/components/FancyStuff.vue';
-import AppBreadcrumb from '@/layout/AppBreadcrumb.vue';
-import { Button } from 'primevue';
-
+import FancyStuff from '@/components/FancyStuff.vue'
+import { Button } from 'primevue'
 </script>
 
 <template>
@@ -38,6 +36,5 @@ import { Button } from 'primevue';
         </template>
       </FancyStuff>
     </div>
-    <AppBreadcrumb />
   </div>
 </template>
