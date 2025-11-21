@@ -3,6 +3,7 @@ import type { Option } from "./option"
 export interface Todo {
   id?: string
   title: string
+  username?: string
   completed: boolean
   awesome?: boolean
   trulyAwesome?: boolean
@@ -14,4 +15,5 @@ export interface Todo {
   }
   categories: Option[]
   category: string
+  color: string
 }

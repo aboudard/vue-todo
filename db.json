@@ -24,44 +24,9 @@
       }
     },
     {
-      "title": "Validated",
+      "title": "Autre todo",
       "completed": true,
-      "id": "uZV05PQ",
-      "hours": 1,
-      "data": {
-        "value": "validated stuff",
-        "code": 54
-      }
-    },
-    {
-      "title": "*Autre",
-      "completed": true,
-      "id": "JO8NblW",
-      "hours": 2,
-      "data": {
-        "value": "autre stuff",
-        "code": 54
-      }
-    },
-    {
-      "title": "Planning",
-      "completed": true,
-      "id": "Wy48VMa",
-      "hours": 3,
-      "data": {
-        "value": "planning stuff",
-        "code": 54
-      }
-    },
-    {
-      "title": "gfvcff g gf gf",
-      "completed": true,
-      "id": "Du2cCEQ",
-      "hours": 4,
-      "data": {
-        "value": "gfvcff g gf gf",
-        "code": 54
-      }
+      "id": "sASBxU5"
     }
   ],
   "translations": [

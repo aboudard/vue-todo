@@ -8,10 +8,7 @@ import { onBeforeMount, ref, useTemplateRef } from 'vue'
 const primeFormsStore = usePrimeFormsStore()
 const refForm = useTemplateRef<FormInstance>('refForm')
 const initialValues = ref<Prime>({
-  username: 'zzz',
-  lastname: 'zzz',
-  completed: false,
-  ready: false,
+  dataForm: { username: 'zzz', lastname: 'zzz', completed: false, ready: false },
 })
 const onFormSubmit = (formSubmitEvent: FormSubmitEvent) => {
   if (formSubmitEvent.valid) {
@@ -21,10 +18,7 @@ const onFormSubmit = (formSubmitEvent: FormSubmitEvent) => {
 }
 onBeforeMount(() => {
   primeFormsStore.setPrime({
-    username: 'MJ',
-    lastname: 'Jackson',
-    completed: false,
-    ready: true,
+    dataForm: { username: 'MJ', lastname: 'Jackson', completed: false, ready: true },
   })
 })
 /* onBeforeMount(async () => {
@@ -55,19 +49,19 @@ const setReady = (value: boolean) => {
         class="flex flex-col gap-4 w-full sm:w-80"
       >
         <div class="flex flex-col gap-1">
-          <InputText name="username" type="text" placeholder="Username" fluid />
+          <InputText name="dataForm.username" type="text" placeholder="Username" fluid />
         </div>
         <div class="flex flex-col gap-1">
-          <InputText name="lastname" type="text" placeholder="Lastname" fluid />
+          <InputText name="dataForm.lastname" type="text" placeholder="Lastname" fluid />
         </div>
         <div class="flex flex-col gap-1">
           <ToggleSwitch
-            name="completed"
+            name="dataForm.completed"
             @change="(e: Event) => setReady((e.target as HTMLInputElement)?.checked)"
           />
         </div>
         <div class="flex flex-col gap-1">
-          <ToggleSwitch name="ready" />
+          <ToggleSwitch name="dataForm.ready" />
         </div>
         <Button :disabled="!$form.valid" type="submit" severity="success" label="Submit" />
       </Form>
@@ -76,6 +70,12 @@ const setReady = (value: boolean) => {
         <div>Initial Values :</div>
         <div>{{ initialValues }}</div>
       </div>
+
+      <div class="p-4 border border-gray-300 rounded-md">
+        <div>Store :</div>
+        <div>{{ primeFormsStore.prime }}</div>
+      </div>
+
     </div>
   </div>
 </template>

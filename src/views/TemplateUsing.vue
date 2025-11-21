@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import FancyStuff from '@/components/FancyStuff.vue'
+import FancyStuffContent from '@/components/FancyStuffContent.vue'
 import { Button } from 'primevue'
 </script>
 
@@ -23,6 +24,17 @@ import { Button } from 'primevue'
         Content of stuff
         <template #footer>
           <p>Poor footer</p>
+        </template>
+      </FancyStuff>
+
+      <FancyStuff>
+        <template v-slot:default="{ text, count, myCall }">
+          <FancyStuffContent :text="text" :count="count" @action="myCall" />
+        </template>
+        <template v-slot:footer>
+          <div class="bg-blue-100 p-2 rounded">
+            <p class="text-blue-800">Using FancyStuffContent component with @action event!</p>
+          </div>
         </template>
       </FancyStuff>
 

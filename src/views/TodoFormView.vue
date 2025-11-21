@@ -3,12 +3,12 @@ import ArraysInput from '@/components/ArraysInput.vue'
 import BaseInput from '@/components/BaseInput.vue'
 import type { Todo } from '@/models/todo'
 import { useTodosStore } from '@/stores/todos.store'
-import { Form, type FormSubmitEvent } from '@primevue/forms'
+import { Form, FormField, type FormSubmitEvent } from '@primevue/forms'
 import { zodResolver } from '@primevue/forms/resolvers/zod'
-import { Button, InputText, Message, Toast, ToggleSwitch } from 'primevue'
+import { Button, ColorPicker, InputText, Message, Toast, ToggleSwitch } from 'primevue'
 import DatePicker from 'primevue/datepicker'
 import { useToast } from 'primevue/usetoast'
-import { ref, useTemplateRef, watchEffect } from 'vue'
+import { reactive, ref, useTemplateRef, watchEffect } from 'vue'
 import { z } from 'zod'
 
 const toast = useToast()
@@ -26,8 +26,9 @@ const logChange = (value: any) => {
   console.log('ToggleSwitch changed to:', value)
 }
 
-const initialValues = ref<Todo>({
-  title: '',
+const initialValues = reactive<Todo>({
+  title: 'qsqs',
+  username: 'alain',
   dueDate: new Date(),
   data: {
     val: 'empty',
@@ -39,15 +40,16 @@ const initialValues = ref<Todo>({
   awesome: true,
   categories: [],
   category: '',
+  color: '#cccccc',
 })
 
 // const trulyAwesome = computed(() => initialValues.value.awesome && initialValues.value.completed)
 
 watchEffect(() => {
   // listen only to initialValues.awesome changes and completed
-  console.log('Awesome changed to:', initialValues.value.awesome)
-  console.log('Completed changed to:', initialValues.value.completed)
-  initialValues.value.trulyAwesome = initialValues.value.awesome && initialValues.value.completed
+  console.log('Awesome changed to:', initialValues.awesome)
+  console.log('Completed changed to:', initialValues.completed)
+  initialValues.trulyAwesome = initialValues.awesome && initialValues.completed
 })
 
 const resolver = ref(
@@ -60,7 +62,9 @@ const resolver = ref(
       categories: z
         .array(z.string())
         .min(1, { message: 'At least one category must be selected.' }),
-      category: z.string().min(1, { message: 'A category must be selected.' })
+      category: z.string().min(1, { message: 'A category must be selected.' }),
+      username: z.string().min(1, { message: 'Username is required.' }),
+      color: z.string().min(1, { message: 'Color is required.' }),
     }),
   ),
 )
@@ -86,6 +90,17 @@ const onFormSubmit = async (e: FormSubmitEvent) => {
     completed: true,
   }); */
 
+  if (!e.valid) {
+    toast.add({
+      severity: 'error',
+      summary: 'Form has errors. Please fix them before submitting.',
+      life: 3000,
+    })
+    return
+  }
+
+  console.log('Form Submitted with values:', e.values)
+
   await store.addTodo({
     title: e.values.title,
     completed: true,
@@ -96,14 +111,14 @@ const onFormSubmit = async (e: FormSubmitEvent) => {
     life: 3000,
   })
   // Reset form
-  initialValues.value.title = ''
-  initialValues.value.dueDate = new Date()
+  initialValues.title = ''
+  initialValues.dueDate = new Date()
 }
 </script>
 <template>
   <div>
     <Toast />
-    <div class="p-3 flex gap-3 justify-center">
+    <div class="p-3 flex flex-col gap-3 justify-center">
       <div>
         <h1>Todo Form</h1>
       </div>
@@ -111,7 +126,6 @@ const onFormSubmit = async (e: FormSubmitEvent) => {
         <Form
           ref="todoForm"
           v-slot="$form"
-          :resolver
           :initialValues
           @submit="onFormSubmit"
           class="basis-1/3 flex flex-col gap-4 w-full sm:w-56"
@@ -174,16 +188,31 @@ const onFormSubmit = async (e: FormSubmitEvent) => {
               v-model:selectedItem="initialValues.category"
               v-model:selectedItems="initialValues.categories"
             />
+            <Message
+              v-if="$form.categories?.invalid"
+              severity="error"
+              size="small"
+              variant="simple"
+              >{{ $form.categories.error?.message }}</Message
+            >
           </div>
-          <Message
-            v-if="$form.categories?.invalid"
-            severity="error"
-            size="small"
-            variant="simple"
-            >{{ $form.categories.error?.message }}</Message
-          >
+          <div class="flex flex-col gap-4">
+            <label for="colorPicker">Select Color:</label>
+            <ColorPicker id="colorPicker" v-model="initialValues.color" name="color" />
+          </div>
           <div>
-            {{ $form.data }}
+            <FormField v-slot="$field" name="username" class="flex flex-col gap-1">
+              <input
+                type="text"
+                v-model="initialValues.username"
+                placeholder="Username"
+                :class="[{ error: $field?.invalid }]"
+                v-bind="$field.props"
+              />
+              <Message v-if="$field?.invalid" severity="error" size="small" variant="simple">{{
+                $field.error?.message
+              }}</Message>
+            </FormField>
           </div>
           <Button type="submit" :disabled="!$form.valid" severity="info" label="Submit" />
         </Form>

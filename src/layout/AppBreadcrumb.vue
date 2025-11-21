@@ -22,7 +22,6 @@ function navigate() {
 function setBreadcrumbRoutes() {
   if (Array.isArray(route.meta.breadcrumb)) {
     breadcrumbRoutes.value = route.meta.breadcrumb as BreadcrumbItem[]
-
     return
   }
 

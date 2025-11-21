@@ -39,6 +39,18 @@ const appRoutes: AppRoute[] = [
     component: () => import('../views/TodosView.vue'),
   },
   {
+    path: '/todos/:id',
+    name: 'todo-detail',
+    component: () => import('../views/TodoDetail.vue'),
+    meta: {
+      breadcrumb: [
+        { label: 'Home', to: '/' },
+        { label: 'Todos', to: '/todos' },
+        { label: 'Todo Detail', to: '' },
+      ],
+    },
+  },
+  {
     path: '/todo-form',
     name: 'todo-form',
     component: () => import('../views/TodoFormView.vue'),

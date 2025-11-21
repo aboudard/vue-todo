@@ -3,23 +3,12 @@ import { useTodosStore } from '@/stores/todos.store'
 import { Badge, Button, Checkbox, Column, DataTable, Toast, useConfirm } from 'primevue'
 import { useToast } from 'primevue/usetoast'
 import { computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 const store = useTodosStore()
 const toast = useToast()
 const confirm = useConfirm()
-
-/* const todos = ref<Todo[]>([
-  {
-    id: 1,
-    title: 'Todo 1',
-    completed: false,
-  },
-  {
-    id: 2,
-    title: 'Todo 2',
-    completed: true,
-  },
-]); */
+const router = useRouter()
 
 const todosList = computed(() => store.todos)
 
@@ -34,6 +23,10 @@ const setTodoCompleted = () => {
 
 const addHour = (id: string) => {
   store.addHour(id)
+}
+
+const viewTodo = (id: string) => {
+  router.push(`/todos/${id}`)
 }
 
 const deleteTodo = async (id: string) => {
@@ -72,9 +65,7 @@ const deleteTodo = async (id: string) => {
 }
 
 onMounted(async () => {
-  // store.fetchTodos()
-  // const response = await axios.get<Todo[]>('http://localhost:3001/todos')
-  // todos.value = response.data
+  await store.fetchTodos()
 })
 </script>
 <template>
@@ -88,7 +79,16 @@ onMounted(async () => {
       </div>
       <DataTable selectionMode="single" :value="todosList" :paginator="true" :rows="5">
         <Column field="id" header="ID"></Column>
-        <Column field="title" header="Title"></Column>
+        <Column field="title" header="Title">
+          <template #body="slotProps">
+            <Button
+              :label="slotProps.data.title"
+              link
+              class="p-0 text-left"
+              @click="viewTodo(slotProps.data.id)"
+            />
+          </template>
+        </Column>
         <Column field="completed" header="Completed">
           <template #body="slotProps">
             <Checkbox v-model="slotProps.data.completed" binary />
@@ -96,20 +96,29 @@ onMounted(async () => {
         </Column>
         <Column header="Actions">
           <template #body="slotProps">
-            <Button
-              icon="pi pi-trash"
-              class="p-button-rounded p-button-danger"
-              @click.prevent="deleteTodo(slotProps.data.id)"
-            />
-            <Button
-              icon="pi pi-plus"
-              class="p-button-rounded p-button-info"
-              @click="addHour(slotProps.data.id)"
-            />
+            <div class="flex gap-2">
+              <Button
+                icon="pi pi-eye"
+                class="p-button-rounded p-button-info"
+                v-tooltip="'View Details'"
+                @click="viewTodo(slotProps.data.id)"
+              />
+              <Button
+                icon="pi pi-plus"
+                class="p-button-rounded p-button-success"
+                v-tooltip="'Add Hour'"
+                @click="addHour(slotProps.data.id)"
+              />
+              <Button
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-danger"
+                v-tooltip="'Delete'"
+                @click.prevent="deleteTodo(slotProps.data.id)"
+              />
+            </div>
           </template>
         </Column>
       </DataTable>
     </div>
   </div>
 </template>
-<style scoped></style>

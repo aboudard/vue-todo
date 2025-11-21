@@ -19,6 +19,23 @@ export const useTodosStore = defineStore('todostore', () => {
     }
   }
 
+  async function fetchTodoById(id: string) {
+    try {
+      const response = await axios.get<Todo>(`http://localhost:3001/todos/${id}`)
+      // Update the todo in the local array if it exists, otherwise add it
+      const existingIndex = todos.value.findIndex((todo) => todo.id === id)
+      if (existingIndex >= 0) {
+        todos.value[existingIndex] = response.data
+      } else {
+        todos.value.push(response.data)
+      }
+      return response.data
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
   watchEffect(() => {
     // when a todo is updated, we call the server with patch
     console.log(todos.value.length)
@@ -62,6 +79,7 @@ export const useTodosStore = defineStore('todostore', () => {
     completedTodosCount,
     totalHours,
     fetchTodos,
+    fetchTodoById,
     addTodo,
     setTodoCompleted,
     deleteTodo,
