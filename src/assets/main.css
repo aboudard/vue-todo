@@ -15,3 +15,27 @@
   --color-sky-900: #6e4115;
   --color-sky-950: #402208;
 }
+
+/* Permet d'afficher les chips d'un multi-select sur deux s'il n'y a pas la place d'afficher tout sur une ligne */
+.multiselect-multiline .p-multiselect-label-container,
+.multiselect-multiline .p-multiselect-label {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.25rem;
+  align-items: flex-start !important;
+  white-space: normal !important;
+}
+
+/* Chaque chip */
+.multiselect-multiline .p-multiselect-token {
+  white-space: normal !important;
+  display: inline-flex !important;
+  margin-right: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+/* Optionnel : limite verticale + scroll */
+.multiselect-multiline .p-multiselect-label {
+  max-height: 150px;
+  overflow-y: auto;
+}

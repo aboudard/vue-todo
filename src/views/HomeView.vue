@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useCustomConfirm } from '@/composables/confirm-custom'
 import axios from 'axios'
-import { InputNumber, Panel, Toast, ToggleSwitch, useToast } from 'primevue'
+import { InputNumber, MultiSelect, Panel, Toast, ToggleSwitch, useToast } from 'primevue'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import { computed, ref } from 'vue'
@@ -16,6 +16,39 @@ const countString = computed({
   set: (val: string) => (count.value = parseInt(val)),
 })
 const title = ref('Counter with local ref')
+const selectedCities = ref();
+const cities = ref([
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' },
+    { name: 'Berlin', code: 'BER' },
+    { name: 'Barcelona', code: 'BCN' },
+    { name: 'Madrid', code: 'MAD' },
+    { name: 'Prague', code: 'PRG' },
+    { name: 'Vienna', code: 'VIE' },
+    { name: 'Budapest', code: 'BUD' },
+    { name: 'Warsaw', code: 'WAW' },
+    { name: 'Athens', code: 'ATH' },
+    { name: 'Copenhagen', code: 'CPH' },
+    { name: 'Dublin', code: 'DUB' },
+    { name: 'Amsterdam', code: 'AMS' },
+    { name: 'Brussels', code: 'BRU' },
+    { name: 'Lisbon', code: 'LIS' },
+    { name: 'Helsinki', code: 'HEL' },
+    { name: 'Oslo', code: 'OSL' },
+    { name: 'Stockholm', code: 'STO' },
+    { name: 'Moscow', code: 'MOW' },
+    { name: 'Kyiv', code: 'KYIV' },
+    { name: 'Tbilisi', code: 'TBS' },
+    { name: 'Yerevan', code: 'YER' },
+    { name: 'Baku', code: 'BAK' },
+    { name: 'Edimburg', code: 'EDI' },
+    { name: 'Zagreb', code: 'ZAG' },
+    { name: 'Belgrade', code: 'BEG' },
+]);
+
 const increment = () => count.value++
 const getHello = async () => {
   const { data } = await axios.get('/api/hello')
@@ -162,7 +195,22 @@ const showCustomConfirm = () => {
             severity="danger"
             class="ml-3"
           />
+          <Button
+            size="small"
+            label="Accent"
+            class="ml-3 p-button-accent"
+            icon="pi pi-eye"
+            iconPos="right"
+          />
         </div>
+      </Panel>
+    </div>
+    <div>
+      <Panel header="Buttons" class="mb-3">
+          <MultiSelect fluid v-model="selectedCities" display="chip" :options="cities" optionLabel="name" filter placeholder="Select Cities"
+             class="mb-3 w-full md:w-80 p-multiselect-multiline" />
+          <MultiSelect fluid v-model="selectedCities" display="chip" :options="cities" optionLabel="name" filter placeholder="Select Cities"
+             class="mb-3 w-full md:w-80 multiselect-multiline" />
       </Panel>
     </div>
     <div>

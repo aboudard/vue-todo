@@ -1,10 +1,11 @@
 <template>
   <div>
-    <ToggleSwitch
+    <div>Completed : <ToggleSwitch
       :value="completed"
       name="completed"
       @value-change="writeValue('completed', $event)"
-    />
+    /></div>
+
     <InputNumber
       type="number"
       name="hours"

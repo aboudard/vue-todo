@@ -58,7 +58,7 @@ const resolver = ref(
       title: z.string().min(1, { message: 'Title is required via Zod.' }),
       dueDate: z.date().min(new Date(), { message: 'Due date must be in the future.' }),
       hours: z.number().min(0, { message: 'Hours must be a positive number.' }),
-      completed: z.literal(true),
+      completed: z.literal(true, { errorMap: () => ({ message: "Completed must be true." }), }),
       categories: z
         .array(z.string())
         .min(1, { message: 'At least one category must be selected.' }),
@@ -127,6 +127,7 @@ const onFormSubmit = async (e: FormSubmitEvent) => {
           ref="todoForm"
           v-slot="$form"
           :initialValues
+          :resolver
           @submit="onFormSubmit"
           class="basis-1/3 flex flex-col gap-4 w-full sm:w-56"
         >

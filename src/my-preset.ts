@@ -235,6 +235,49 @@ export const myPreset = {
           },
         },
       },
+      extend: {
+        accent: {
+          color: '#a855f7',
+          hoverColor: '#8f36e3',
+          textColor: '#ffffff',
+          borderColor: '#a855f7',
+          hoverBorderColor: '#8f36e3',
+        },
+      },
+      css: ({ dt }: any) => `
+    .p-button-accent:not(:disabled) {
+      background-color: ${dt('button.accent.color')};
+      color: ${dt('button.accent.textColor')};
+      border-color: ${dt('button.accent.borderColor')};
+      &:hover {
+        background-color: ${dt('button.accent.hoverColor')};
+        border-color: ${dt('button.accent.hoverBorderColor')};
+      }
+    }`,
+    },
+    multiselect: {
+      colorScheme: {
+        light: {
+          root: {
+            background: '{blue.50}',
+          },
+        },
+      },
+      extend: {
+        multiline: {},
+      },
+      css: ({ dt }: any) => `
+        .p-multiselect-multiline {
+          .p-multiselect-label-container, .p-multiselect-label {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            align-items: flex-start !important;
+            white-space: normal !important;
+            max-height: 11rem !important;
+            overflow-y: auto !important;
+          }
+        }
+      `,
     },
     toggleswitch: {
       colorScheme: {
