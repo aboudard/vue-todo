@@ -26,37 +26,34 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { Option } from '@/views/TodosView.vue';
+import type { Option } from '@/models/option'
 import { Button, Checkbox, RadioButton } from 'primevue'
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 const emit = defineEmits(['update:selectedItems', 'update:selectedItem'])
-const props = defineProps<
-{
-  items: Option[];
-  selectedItem: string;
-  selectedItems: Option[];
-}
->()
+const props = defineProps<{
+  items: Option[]
+  selectedItem: string
+  selectedItems: Option[]
+}>()
 
-const selectedItems = ref<Option[]>(props.selectedItems);
-const selectedItem = ref<string>(props.selectedItem);
+const selectedItems = ref<Option[]>(props.selectedItems)
+const selectedItem = ref<string>(props.selectedItem)
 
 const writeValue = (key: string, value: any) => {
   if (key === 'selectedItem') {
-    selectedItem.value = value;
+    selectedItem.value = value
     emit('update:selectedItem', value)
   } else if (key === 'selectedItems') {
-    selectedItems.value = value;
+    selectedItems.value = value
     emit('update:selectedItems', value)
   }
 }
 
 const resetCategories = () => {
-  selectedItems.value = [];
-  selectedItem.value = '';
-  emit('update:selectedItems', []);
-  emit('update:selectedItem', '');
+  selectedItems.value = []
+  selectedItem.value = ''
+  emit('update:selectedItems', [])
+  emit('update:selectedItem', '')
 }
-
 </script>

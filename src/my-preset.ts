@@ -282,33 +282,31 @@ export const myPreset = {
     toggleswitch: {
       colorScheme: {
         light: {
-          root: {
-            handle: {
-              background: '{green.500}',
-              disabledBackground: '{green.200}',
-              hoverBackground: '{green.800}',
-              checkedBackground: '{red.500}',
-              checkedHoverBackground: '{red.800}',
-              color: '{text.muted.color}',
-              hoverColor: '{text.color}',
-              checkedColor: '{surface.0}',
-              checkedHoverColor: '{surface.0}',
-            },
+          root: {},
+          handle: {
+            background: '{green.500}',
+            disabledBackground: '{green.200}',
+            hoverBackground: '{green.800}',
+            checkedBackground: '{red.500}',
+            checkedHoverBackground: '{red.800}',
+            color: '{text.muted.color}',
+            hoverColor: '{text.color}',
+            checkedColor: '{surface.0}',
+            checkedHoverColor: '{surface.0}',
           },
         },
         dark: {
-          root: {
-            handle: {
-              background: '{green.500}',
-              disabledBackground: '{green.200}',
-              hoverBackground: '{green.800}',
-              checkedBackground: '{red.500}',
-              checkedHoverBackground: '{red.800}',
-              color: '{text.muted.color}',
-              hoverColor: '{text.color}',
-              checkedColor: '{surface.0}',
-              checkedHoverColor: '{surface.0}',
-            },
+          root: {},
+          handle: {
+            background: '{green.500}',
+            disabledBackground: '{green.200}',
+            hoverBackground: '{green.800}',
+            checkedBackground: '{red.500}',
+            checkedHoverBackground: '{red.800}',
+            color: '{text.muted.color}',
+            hoverColor: '{text.color}',
+            checkedColor: '{surface.0}',
+            checkedHoverColor: '{surface.0}',
           },
         },
       },
