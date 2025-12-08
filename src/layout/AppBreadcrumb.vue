@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { Button } from 'primevue'
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -30,7 +28,7 @@ function setBreadcrumbRoutes() {
     .filter((item) => item !== '')
     .filter((item) => isNaN(Number(item)))
     .map((item) => ({
-      label: item.charAt(0).toUpperCase() + item.slice(1)
+      label: item.charAt(0).toUpperCase() + item.slice(1),
     }))
 }
 
@@ -44,7 +42,7 @@ watch(
 </script>
 
 <template>
-  <div class="layout-breadcrumb-container">
+  <div class="layout-breadcrumb-container p-3">
     <nav class="layout-breadcrumb">
       <div>
         <span>
@@ -61,11 +59,5 @@ watch(
         </template>
       </div>
     </nav>
-
-    <div class="layout-breadcrumb-buttons">
-      <Button rounded text plain>
-        <FontAwesomeIcon :icon="['fa-brands', 'wikipedia-w']" />
-      </Button>
-    </div>
   </div>
 </template>
