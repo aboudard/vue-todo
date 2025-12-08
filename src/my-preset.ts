@@ -245,35 +245,25 @@ export const myPreset = {
         },
       },
       css: ({ dt }: any) => `
-    .p-button-accent:not(:disabled) {
-      background-color: ${dt('button.accent.color')};
-      color: ${dt('button.accent.textColor')};
-      border-color: ${dt('button.accent.borderColor')};
-      &:hover {
-        background-color: ${dt('button.accent.hoverColor')};
-        border-color: ${dt('button.accent.hoverBorderColor')};
-      }
-    }`,
+      .p-button-accent:not(:disabled) {
+        background-color: ${dt('button.accent.color')};
+        color: ${dt('button.accent.textColor')};
+        border-color: ${dt('button.accent.borderColor')};
+        &:hover {
+          background-color: ${dt('button.accent.hoverColor')};
+          border-color: ${dt('button.accent.hoverBorderColor')};
+        }
+      }`,
     },
     multiselect: {
-      colorScheme: {
-        light: {
-          root: {
-            background: '{blue.50}',
-          },
-        },
-      },
-      extend: {
-        multiline: {},
-      },
-      css: ({ dt }: any) => `
+      css: () => `
         .p-multiselect-multiline {
           .p-multiselect-label-container, .p-multiselect-label {
             display: flex !important;
             flex-wrap: wrap !important;
             align-items: flex-start !important;
             white-space: normal !important;
-            max-height: 11rem !important;
+            max-height: 10.8rem !important;
             overflow-y: auto !important;
           }
         }
