@@ -2,13 +2,19 @@
 import type { Prime } from '@/models/prime'
 import { usePrimeFormsStore } from '@/stores/prime-forms.store'
 import { Form, type FormInstance, type FormSubmitEvent } from '@primevue/forms'
+import { zodResolver } from '@primevue/forms/resolvers/zod'
 import { Button, InputText, ToggleSwitch } from 'primevue'
-import { onBeforeMount, ref, useTemplateRef } from 'vue'
+import { onBeforeMount, onMounted, ref, useTemplateRef } from 'vue'
+import * as zod from 'zod'
 
 const primeFormsStore = usePrimeFormsStore()
 const refForm = useTemplateRef<FormInstance>('refForm')
 const initialValues = ref<Prime>({
-  dataForm: { username: 'zzz', lastname: 'zzz', completed: false, ready: false },
+  username: 'zzz',
+  lastname: 'zzz',
+  age: 20,
+  completed: false,
+  ready: false,
 })
 const onFormSubmit = (formSubmitEvent: FormSubmitEvent) => {
   if (formSubmitEvent.valid) {
@@ -16,10 +22,22 @@ const onFormSubmit = (formSubmitEvent: FormSubmitEvent) => {
     console.log('Initial Values:', initialValues.value)
   }
 }
+const resolver = zodResolver(
+  zod.object({
+    username: zod.string().min(1, { message: 'Username is required.' }),
+    lastname: zod.string().min(1, { message: 'Lastname is required.' }),
+    // either number or string that can be parsed to number
+    age: zod.coerce.number().min(0, { message: 'Age must be a positive number.' }),
+  }),
+)
+
 onBeforeMount(() => {
-  primeFormsStore.setPrime({
+  /* primeFormsStore.setPrime({
     dataForm: { username: 'MJ', lastname: 'Jackson', completed: false, ready: true },
-  })
+  }) */
+})
+onMounted(() => {
+  console.log('Mounted - Store Prime:', primeFormsStore.prime)
 })
 /* onBeforeMount(async () => {
   await primeFormsStore.loadPrime({
@@ -44,24 +62,30 @@ const setReady = (value: boolean) => {
       <Form
         ref="refForm"
         v-slot="$form"
-        :initialValues="primeFormsStore.prime"
+        :resolver
+        :initialValues
         @submit="onFormSubmit"
         class="flex flex-col gap-4 w-full sm:w-80"
       >
         <div class="flex flex-col gap-1">
-          <InputText name="dataForm.username" type="text" placeholder="Username" fluid />
+          <InputText name="username" type="text" placeholder="Username" fluid />
         </div>
         <div class="flex flex-col gap-1">
-          <InputText name="dataForm.lastname" type="text" placeholder="Lastname" fluid />
+          <InputText name="lastname" type="text" placeholder="Lastname" fluid />
         </div>
         <div class="flex flex-col gap-1">
+          <InputText name="age" type="number" placeholder="Age" fluid />
+        </div>
+        <div class="flex flex-col gap-1">
+          Completed
           <ToggleSwitch
-            name="dataForm.completed"
+            name="completed"
             @change="(e: Event) => setReady((e.target as HTMLInputElement)?.checked)"
           />
         </div>
         <div class="flex flex-col gap-1">
-          <ToggleSwitch name="dataForm.ready" />
+          Ready
+          <ToggleSwitch name="ready" />
         </div>
         <Button :disabled="!$form.valid" type="submit" severity="success" label="Submit" />
       </Form>
@@ -75,7 +99,6 @@ const setReady = (value: boolean) => {
         <div>Store :</div>
         <div>{{ primeFormsStore.prime }}</div>
       </div>
-
     </div>
   </div>
 </template>

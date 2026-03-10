@@ -73,20 +73,24 @@ onMounted(async () => {
     <Toast />
     <div class="p-3">
       <h1>Todo List</h1>
-      <p>Total Hours: <Badge :value="store.totalHours" /></p>
+      <p>Total Hours:
+        <Badge :value="store.totalHours" />
+      </p>
       <div>
         <Button size="small" label="count" v-on:click="callMe()" />
       </div>
-      <DataTable selectionMode="single" :value="todosList" :paginator="true" :rows="5">
+      <DataTable selectionMode="single" :value="todosList" :paginator="true" :rows="5" :pt="{
+        root: { style: { padding: '1rem', backgroundColor: 'blue' } },
+        Column: {
+          bodyCell: ({ context, props }) => {
+            return { style: { padding: '0.5rem', backgroundColor: props.field === 'completed' ? 'lightgreen' : 'lightcoral' } }
+          },
+        }
+      }">
         <Column field="id" header="ID"></Column>
         <Column field="title" header="Title">
           <template #body="slotProps">
-            <Button
-              :label="slotProps.data.title"
-              link
-              class="p-0 text-left"
-              @click="viewTodo(slotProps.data.id)"
-            />
+            <Button :label="slotProps.data.title" link class="p-0 text-left" @click="viewTodo(slotProps.data.id)" />
           </template>
         </Column>
         <Column field="completed" header="Completed">
@@ -97,24 +101,12 @@ onMounted(async () => {
         <Column header="Actions">
           <template #body="slotProps">
             <div class="flex gap-2">
-              <Button
-                icon="pi pi-eye"
-                class="p-button-rounded p-button-info"
-                v-tooltip="'View Details'"
-                @click="viewTodo(slotProps.data.id)"
-              />
-              <Button
-                icon="pi pi-plus"
-                class="p-button-rounded p-button-success"
-                v-tooltip="'Add Hour'"
-                @click="addHour(slotProps.data.id)"
-              />
-              <Button
-                icon="pi pi-trash"
-                class="p-button-rounded p-button-danger"
-                v-tooltip="'Delete'"
-                @click.prevent="deleteTodo(slotProps.data.id)"
-              />
+              <Button icon="pi pi-eye" class="p-button-rounded p-button-info" v-tooltip="'View Details'"
+                @click="viewTodo(slotProps.data.id)" />
+              <Button icon="pi pi-plus" class="p-button-rounded p-button-success" v-tooltip="'Add Hour'"
+                @click="addHour(slotProps.data.id)" />
+              <Button icon="pi pi-trash" class="p-button-rounded p-button-danger" v-tooltip="'Delete'"
+                @click.prevent="deleteTodo(slotProps.data.id)" />
             </div>
           </template>
         </Column>

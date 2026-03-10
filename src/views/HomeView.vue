@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useCustomConfirm } from '@/composables/confirm-custom'
 import axios from 'axios'
-import { InputNumber, MultiSelect, Panel, Toast, ToggleSwitch, useToast } from 'primevue'
+import { InputNumber, MultiSelect, Select, Panel, Toast, ToggleSwitch, useToast } from 'primevue'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import { computed, ref } from 'vue'
@@ -16,6 +16,8 @@ const countString = computed({
   set: (val: string) => (count.value = parseInt(val)),
 })
 const title = ref('Counter with local ref')
+const selectedVille = ref<string | null>(null);
+const villes = ref<string[]>(['Paris', 'Lyon', 'Marseille']);
 const selectedCities = ref();
 const cities = ref([
     { name: 'New York', code: 'NY' },
@@ -68,7 +70,23 @@ const showCustomConfirm = () => {
 <template>
   <div class="p-3">
     <h2>{{ title?.toUpperCase() || 'Default' }}</h2>
-    <div class="mb-3"><InputText size="small" readonly v-model="countString" /></div>
+    <div class="mb-3 flex gap-3">
+      <InputText size="small" readonly v-model="countString" />
+      <InputText size="small" disabled :value="countString" />
+    </div>
+    <div class="flex gap-3 w-72">
+				<Select
+					v-model="selectedVille"
+					:options="villes"
+					disabled
+					placeholder="Choisis une ville"
+				/>
+				<Select
+					v-model="selectedVille"
+					:options="villes"
+					placeholder="Choisis une ville"
+				/>
+			</div>
     <div class="card flex justify-center">
       <ToggleSwitch v-model="checked" />
     </div>
@@ -209,7 +227,7 @@ const showCustomConfirm = () => {
       <Panel header="Buttons" class="mb-3">
           <MultiSelect fluid v-model="selectedCities" display="chip" :options="cities" optionLabel="name" filter placeholder="Select Cities"
              class="mb-3 w-full md:w-80 p-multiselect-multiline" />
-          <MultiSelect fluid v-model="selectedCities" display="chip" :options="cities" optionLabel="name" filter placeholder="Select Cities"
+          <MultiSelect fluid v-model="selectedCities" :options="cities" optionLabel="name" filter placeholder="Select Cities"
              class="mb-3 w-full md:w-80 multiselect-multiline" />
       </Panel>
     </div>

@@ -4,7 +4,11 @@ import { ref } from 'vue'
 
 export const usePrimeFormsStore = defineStore('primeformsstore', () => {
   const prime = ref<Prime>({
-    dataForm: { username: 'zzz', lastname: 'zzz', completed: false, ready: false },
+    username: 'zzz',
+    lastname: 'zzz',
+    age: 0,
+    completed: false,
+    ready: false,
   })
   const setPrime = (data: Prime) => {
     prime.value = data

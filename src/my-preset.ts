@@ -255,20 +255,31 @@ export const myPreset = {
         }
       }`,
     },
-    multiselect: {
-      css: () => `
+    /*inputtext: {
+      css: ({ dt }: any) => `
+        .p-inputtext.p-variant-filled {
+          background-color: ${dt('blue.100')};
+          border-color: ${dt('blue.300')};
+        }
+      `,
+    },*/
+    /*multiselect: {
+      extend: {
+        multiline: {
+          color: '#a855f7',
+        }
+      },
+      css: ({ dt }: any) => `
         .p-multiselect-multiline {
           .p-multiselect-label-container, .p-multiselect-label {
-            display: flex !important;
+            color: ${dt('multiselect.multiline.color')};
             flex-wrap: wrap !important;
-            align-items: flex-start !important;
-            white-space: normal !important;
             max-height: 10.8rem !important;
             overflow-y: auto !important;
           }
         }
       `,
-    },
+    },*/
     toggleswitch: {
       colorScheme: {
         light: {

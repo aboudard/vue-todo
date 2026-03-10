@@ -6,7 +6,7 @@ import './assets/main.css'
 
 import { definePreset } from '@primeuix/themes'
 import Material from '@primeuix/themes/material'
-import { ToastService } from 'primevue'
+import { ToastService, Tooltip } from 'primevue'
 import PrimeVue from 'primevue/config'
 import ConfirmationService from 'primevue/confirmationservice'
 import { createI18n } from 'vue-i18n'
@@ -37,6 +37,7 @@ app.use(ConfirmationService)
 app.use(PrimeVue, {
   unstyled: false,
   ripple: true,
+  inputVariant: 'filled',
   theme: {
     preset: MyPreset,
     options: {
@@ -45,5 +46,6 @@ app.use(PrimeVue, {
   },
 })
 app.use(i18n)
+app.directive('tooltip', Tooltip);
 
 app.mount('#app')
