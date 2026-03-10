@@ -5,6 +5,8 @@ import { createPinia, setActivePinia } from 'pinia'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import MenuView from '../MenuView.vue'
 
+const mockSetAppLocale = vi.fn()
+
 // Mock vue-router
 const mockRouter = {
   push: vi.fn(),
@@ -33,6 +35,10 @@ const mockI18n = {
 
 vi.mock('vue-i18n', () => ({
   useI18n: () => mockI18n,
+}))
+
+vi.mock('@/i18n', () => ({
+  setAppLocale: mockSetAppLocale,
 }))
 
 // Mock PrimeVue components
@@ -80,6 +86,7 @@ describe('MenuView', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
     vi.clearAllMocks()
+    mockSetAppLocale.mockResolvedValue(undefined)
   })
 
   const createWrapper = (props: { title: string }) => {
@@ -150,8 +157,9 @@ describe('MenuView', () => {
     await wrapper.vm.$nextTick()
 
     // Since we can't easily test the internal reactive changes with mocks,
-    // let's test that the select component is properly rendered
+    // verify the locale loader is invoked
     expect(select.exists()).toBe(true)
+    expect(mockSetAppLocale).toHaveBeenCalledWith('en')
   })
 
   it('has correct CSS classes for menubar', () => {

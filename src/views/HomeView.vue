@@ -1,54 +1,55 @@
 <script setup lang="ts">
 import { useCustomConfirm } from '@/composables/confirm-custom'
 import axios from 'axios'
-import { InputNumber, MultiSelect, Select, Panel, Toast, ToggleSwitch, useToast } from 'primevue'
+import { InputNumber, MultiSelect, Panel, Select, Toast, ToggleSwitch, useToast } from 'primevue'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 // const customConfirm = useCustomConfirm()
 const customConfirm = useCustomConfirm()
 const toast = useToast()
+const { t } = useI18n()
 const count = ref(0)
 const checked = ref(false)
 const countString = computed({
   get: () => count.value.toString(),
-  set: (val: string) => (count.value = parseInt(val)),
+  set: (val: string) => (count.value = Number.parseInt(val)),
 })
-const title = ref('Counter with local ref')
 const selectedVille = ref<string | null>(null);
 const villes = ref<string[]>(['Paris', 'Lyon', 'Marseille']);
 const selectedCities = ref();
 const cities = ref([
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' },
-    { name: 'Berlin', code: 'BER' },
-    { name: 'Barcelona', code: 'BCN' },
-    { name: 'Madrid', code: 'MAD' },
-    { name: 'Prague', code: 'PRG' },
-    { name: 'Vienna', code: 'VIE' },
-    { name: 'Budapest', code: 'BUD' },
-    { name: 'Warsaw', code: 'WAW' },
-    { name: 'Athens', code: 'ATH' },
-    { name: 'Copenhagen', code: 'CPH' },
-    { name: 'Dublin', code: 'DUB' },
-    { name: 'Amsterdam', code: 'AMS' },
-    { name: 'Brussels', code: 'BRU' },
-    { name: 'Lisbon', code: 'LIS' },
-    { name: 'Helsinki', code: 'HEL' },
-    { name: 'Oslo', code: 'OSL' },
-    { name: 'Stockholm', code: 'STO' },
-    { name: 'Moscow', code: 'MOW' },
-    { name: 'Kyiv', code: 'KYIV' },
-    { name: 'Tbilisi', code: 'TBS' },
-    { name: 'Yerevan', code: 'YER' },
-    { name: 'Baku', code: 'BAK' },
-    { name: 'Edimburg', code: 'EDI' },
-    { name: 'Zagreb', code: 'ZAG' },
-    { name: 'Belgrade', code: 'BEG' },
+  { name: 'New York', code: 'NY' },
+  { name: 'Rome', code: 'RM' },
+  { name: 'London', code: 'LDN' },
+  { name: 'Istanbul', code: 'IST' },
+  { name: 'Paris', code: 'PRS' },
+  { name: 'Berlin', code: 'BER' },
+  { name: 'Barcelona', code: 'BCN' },
+  { name: 'Madrid', code: 'MAD' },
+  { name: 'Prague', code: 'PRG' },
+  { name: 'Vienna', code: 'VIE' },
+  { name: 'Budapest', code: 'BUD' },
+  { name: 'Warsaw', code: 'WAW' },
+  { name: 'Athens', code: 'ATH' },
+  { name: 'Copenhagen', code: 'CPH' },
+  { name: 'Dublin', code: 'DUB' },
+  { name: 'Amsterdam', code: 'AMS' },
+  { name: 'Brussels', code: 'BRU' },
+  { name: 'Lisbon', code: 'LIS' },
+  { name: 'Helsinki', code: 'HEL' },
+  { name: 'Oslo', code: 'OSL' },
+  { name: 'Stockholm', code: 'STO' },
+  { name: 'Moscow', code: 'MOW' },
+  { name: 'Kyiv', code: 'KYIV' },
+  { name: 'Tbilisi', code: 'TBS' },
+  { name: 'Yerevan', code: 'YER' },
+  { name: 'Baku', code: 'BAK' },
+  { name: 'Edimburg', code: 'EDI' },
+  { name: 'Zagreb', code: 'ZAG' },
+  { name: 'Belgrade', code: 'BEG' },
 ]);
 
 const increment = () => count.value++
@@ -69,166 +70,63 @@ const showCustomConfirm = () => {
 </script>
 <template>
   <div class="p-3">
-    <h2>{{ title?.toUpperCase() || 'Default' }}</h2>
+    <h2>{{ t('home.title') }}</h2>
     <div class="mb-3 flex gap-3">
       <InputText size="small" readonly v-model="countString" />
       <InputText size="small" disabled :value="countString" />
     </div>
     <div class="flex gap-3 w-72">
-				<Select
-					v-model="selectedVille"
-					:options="villes"
-					disabled
-					placeholder="Choisis une ville"
-				/>
-				<Select
-					v-model="selectedVille"
-					:options="villes"
-					placeholder="Choisis une ville"
-				/>
-			</div>
+      <Select v-model="selectedVille" :options="villes" disabled placeholder="Choisis une ville" />
+      <Select v-model="selectedVille" :options="villes" placeholder="Choisis une ville" />
+    </div>
     <div class="card flex justify-center">
       <ToggleSwitch v-model="checked" />
     </div>
     <div>
       <div class="mb-3 text-white">{{ count }}</div>
-      <div class="mb-3"><InputNumber size="small" showButtons type="number" v-model="count" /></div>
+      <div class="mb-3">
+        <InputNumber size="small" showButtons type="number" v-model="count" />
+      </div>
       <Panel header="Toasts" class="mb-3">
         <div class="mb-3">
-          <Button
-            size="small"
-            @click="showToast('info', 'Info', 'This is an info message')"
-            label="Show Info Toast"
-            icon="pi pi-info-circle"
-            iconPos="right"
-            severity="info"
-            class="mr-3"
-          />
-          <Button
-            size="small"
-            @click="showToast('success', 'Success', 'This is a success message')"
-            label="Show Success Toast"
-            icon="pi pi-check-circle"
-            iconPos="right"
-            severity="success"
-            class="mr-3"
-          />
-          <Button
-            size="small"
-            @click="showToast('warn', 'Warning', 'This is a warning message')"
-            label="Show Warning Toast"
-            icon="pi pi-exclamation-triangle"
-            iconPos="right"
-            severity="warn"
-            class="mr-3"
-          />
-          <Button
-            size="small"
-            @click="showToast('error', 'Error', 'This is an error message')"
-            label="Show Error Toast"
-            icon="pi pi-times-circle"
-            iconPos="right"
-            severity="error"
-            class="mr-3"
-          />
-          <Button
-            size="small"
-            @click="showToast('secondary', 'Success', 'This is a secondary message')"
-            label="Show Secondary Toast"
-            icon="pi pi-check-circle"
-            iconPos="right"
-            severity="secondary"
-            class="mr-3"
-          />
-          <Button
-            size="small"
-            @click="showToast('contrast', 'Contrast', 'This is a contrast message')"
-            label="Show Contrast Toast"
-            icon="pi pi-question-circle"
-            iconPos="right"
-            severity="contrast"
-            class="mr-3"
-          />
+          <Button size="small" @click="showToast('info', 'Info', 'This is an info message')" label="Show Info Toast"
+            icon="pi pi-info-circle" iconPos="right" severity="info" class="mr-3" />
+          <Button size="small" @click="showToast('success', 'Success', 'This is a success message')"
+            label="Show Success Toast" icon="pi pi-check-circle" iconPos="right" severity="success" class="mr-3" />
+          <Button size="small" @click="showToast('warn', 'Warning', 'This is a warning message')"
+            label="Show Warning Toast" icon="pi pi-exclamation-triangle" iconPos="right" severity="warn" class="mr-3" />
+          <Button size="small" @click="showToast('error', 'Error', 'This is an error message')" label="Show Error Toast"
+            icon="pi pi-times-circle" iconPos="right" severity="error" class="mr-3" />
+          <Button size="small" @click="showToast('secondary', 'Success', 'This is a secondary message')"
+            label="Show Secondary Toast" icon="pi pi-check-circle" iconPos="right" severity="secondary" class="mr-3" />
+          <Button size="small" @click="showToast('contrast', 'Contrast', 'This is a contrast message')"
+            label="Show Contrast Toast" icon="pi pi-question-circle" iconPos="right" severity="contrast" class="mr-3" />
         </div>
       </Panel>
       <Panel header="Buttons" class="mb-3">
         <div class="mb-3">
-          <Button
-            size="small"
-            label="Secondary"
-            severity="secondary"
-            class="mr-3"
-            icon="pi pi-check"
-            iconPos="right"
-          />
-          <Button
-            size="small"
-            @click="increment"
-            label="Increment"
-            severity="info"
-            class="mr-3"
-            icon="pi pi-check"
-            iconPos="right"
-          />
-          <Button
-            size="small"
-            @click="count--"
-            label="Decrement"
-            icon="pi pi-times"
-            iconPos="right"
-            class="mr-3"
-          />
-          <Button
-            size="small"
-            @click="getHello"
-            label="Get Hello"
-            icon="pi pi-eye"
-            iconPos="right"
-            severity="help"
-            class="mr-3"
-          />
-          <Button
-            size="small"
-            @click="postHello"
-            label="Post Hello"
-            icon="pi pi-send"
-            iconPos="right"
-            severity="success"
-          />
-          <Button
-            size="small"
-            @click="showToast('info', 'Info', 'This is an info message')"
-            label="Show Toast"
-            icon="pi pi-bell"
-            iconPos="right"
-            severity="warning"
-            class="ml-3"
-          />
-          <Button
-            size="small"
-            @click="showCustomConfirm()"
-            label="Custom Confirm"
-            icon="pi pi-exclamation-triangle"
-            iconPos="right"
-            severity="danger"
-            class="ml-3"
-          />
-          <Button
-            size="small"
-            label="Accent"
-            class="ml-3 p-button-accent"
-            icon="pi pi-eye"
-            iconPos="right"
-          />
+          <Button size="small" label="Secondary" severity="secondary" class="mr-3" icon="pi pi-check" iconPos="right" />
+          <Button size="small" @click="increment" label="Increment" severity="info" class="mr-3" icon="pi pi-check"
+            iconPos="right" />
+          <Button size="small" @click="count--" label="Decrement" icon="pi pi-times" iconPos="right" class="mr-3" />
+          <Button size="small" @click="getHello" label="Get Hello" icon="pi pi-eye" iconPos="right" severity="help"
+            class="mr-3" />
+          <Button size="small" @click="postHello" label="Post Hello" icon="pi pi-send" iconPos="right"
+            severity="success" />
+          <Button size="small" @click="showToast('info', 'Info', 'This is an info message')" label="Show Toast"
+            icon="pi pi-bell" iconPos="right" severity="warning" class="ml-3" />
+          <Button size="small" @click="showCustomConfirm()" label="Custom Confirm" icon="pi pi-exclamation-triangle"
+            iconPos="right" severity="danger" class="ml-3" />
+          <Button size="small" label="Accent" class="ml-3 p-button-accent" icon="pi pi-eye" iconPos="right" />
         </div>
       </Panel>
     </div>
     <div>
       <Panel header="Buttons" class="mb-3">
-          <MultiSelect fluid v-model="selectedCities" display="chip" :options="cities" optionLabel="name" filter placeholder="Select Cities"
-             class="mb-3 w-full md:w-80 p-multiselect-multiline" />
-          <MultiSelect fluid v-model="selectedCities" :options="cities" optionLabel="name" filter placeholder="Select Cities"
-             class="mb-3 w-full md:w-80 multiselect-multiline" />
+        <MultiSelect fluid v-model="selectedCities" display="chip" :options="cities" optionLabel="name" filter
+          placeholder="Select Cities" class="mb-3 w-full md:w-80 p-multiselect-multiline" />
+        <MultiSelect fluid v-model="selectedCities" :options="cities" optionLabel="name" filter
+          placeholder="Select Cities" class="mb-3 w-full md:w-80 multiselect-multiline" />
       </Panel>
     </div>
     <div>

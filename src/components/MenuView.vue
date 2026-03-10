@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { setAppLocale } from '@/i18n'
 import { useCounterStore } from '@/stores/counter.store'
 import { useTodosStore } from '@/stores/todos.store'
 import { Badge, Select } from 'primevue'
@@ -50,8 +51,8 @@ const items = ref([
 ])
 const { locale } = useI18n()
 const selectedLang = ref(locale.value)
-const changeLang = () => {
-  locale.value = selectedLang.value
+const changeLang = async () => {
+  await setAppLocale(selectedLang.value)
 }
 </script>
 
@@ -72,17 +73,10 @@ const changeLang = () => {
       </router-link>
     </template>
     <template #end>
-      <Select
-        v-model="selectedLang"
-        @change="changeLang"
-        class="mr-3"
-        option-value="code"
-        optionLabel="name"
-        :options="[
-          { name: 'EN', code: 'en' },
-          { name: 'FR', code: 'fr' },
-        ]"
-      />
+      <Select v-model="selectedLang" @change="changeLang" class="mr-3" option-value="code" optionLabel="name" :options="[
+        { name: 'EN', code: 'en' },
+        { name: 'FR', code: 'fr' },
+      ]" />
       <SubComp :label="'Sub Component'" />
     </template>
   </Menubar>

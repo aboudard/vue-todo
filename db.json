@@ -31,33 +31,25 @@
   ],
   "translations": [
     {
-      "page": "home",
-      "language": "en",
-      "data": {
+      "id": "en",
+      "title": "The Vue App",
+      "home": {
         "title": "Home",
         "description": "Welcome to the home page"
-      }
-    },
-    {
-      "page": "home",
-      "language": "fr",
-      "data": {
-        "title": "Accueil",
-        "description": "Bienvenue sur la page d'accueil"
-      }
-    },
-    {
-      "page": "about",
-      "language": "en",
-      "data": {
+      },
+      "about": {
         "title": "About",
         "description": "This is the about page"
       }
     },
     {
-      "page": "about",
-      "language": "fr",
-      "data": {
+      "id": "fr",
+      "title": "L'application Vue",
+      "home": {
+        "title": "Accueil",
+        "description": "Bienvenue sur la page d'accueil"
+      },
+      "about": {
         "title": "À propos",
         "description": "Ceci est la page à propos"
       }
