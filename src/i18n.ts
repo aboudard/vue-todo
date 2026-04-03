@@ -1,10 +1,13 @@
 import axios from 'axios'
 import { createI18n } from 'vue-i18n'
+import { mockTranslations } from './i18n.mock'
 
 export const defaultLocale = 'fr'
 const fallbackLocale = 'en'
 
-type TranslationMessages = Record<string, unknown>
+export type TranslationMessages = Record<string, unknown>
+
+const useMockData = import.meta.env.VITE_USE_MOCK_DATA === 'true'
 
 export const i18n = createI18n({
   legacy: false,
@@ -16,6 +19,14 @@ export const i18n = createI18n({
 export async function loadLocaleMessages(lang: string): Promise<void> {
   const localeMessages = i18n.global.getLocaleMessage(lang)
   if (Object.keys(localeMessages).length > 0) {
+    return
+  }
+
+  if (useMockData) {
+    const messages = mockTranslations[lang]
+    if (messages) {
+      i18n.global.setLocaleMessage(lang, messages)
+    }
     return
   }
 

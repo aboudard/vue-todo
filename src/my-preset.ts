@@ -1,3 +1,5 @@
+import type { Preset } from '@primeuix/themes/types'
+
 export const myPreset = {
   primitive: {
     /*sky: {
@@ -244,7 +246,7 @@ export const myPreset = {
           hoverBorderColor: '#8f36e3',
         },
       },
-      css: ({ dt }: any) => `
+      css: ({ dt }) => `
       .p-button-accent:not(:disabled) {
         background-color: ${dt('button.accent.color')};
         color: ${dt('button.accent.textColor')};
@@ -313,4 +315,4 @@ export const myPreset = {
       },
     },
   },
-}
+} satisfies Preset

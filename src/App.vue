@@ -3,10 +3,10 @@ import { ConfirmDialog, ProgressSpinner } from 'primevue'
 import { onMounted, provide } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RouterView } from 'vue-router'
-import MenuView from './components/MenuView.vue'
-import { useAppStore } from './stores/app.store'
-import { useTodosStore } from './stores/todos.store'
-import AppBreadcrumb from './layout/AppBreadcrumb.vue'
+import { useAppStore } from './app/stores/app.store'
+import { useTodosStore } from './features/todos/stores/todos.store'
+import MenuView from './shared/components/menu/MenuView.vue'
+import AppBreadcrumb from './shared/layout/AppBreadcrumb.vue'
 
 const { t } = useI18n()
 const store = useTodosStore()
@@ -36,6 +36,7 @@ onMounted(async () => {
   left: 50%;
   width: 6rem !important;
   height: 6rem !important;
-  z-index: 100; /* this seems to work for me but may need to be higher*/
+  z-index: 100;
+  /* this seems to work for me but may need to be higher*/
 }
 </style>

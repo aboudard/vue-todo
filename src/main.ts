@@ -10,9 +10,9 @@ import { ToastService, Tooltip } from 'primevue'
 import PrimeVue from 'primevue/config'
 import ConfirmationService from 'primevue/confirmationservice'
 import App from './App.vue'
+import router from './app/router'
 import { i18n, initializeI18n } from './i18n'
 import { myPreset } from './my-preset'
-import router from './router'
 
 const app = createApp(App)
 const MyPreset = definePreset(Material, myPreset)
@@ -35,6 +35,9 @@ app.use(PrimeVue, {
 app.use(i18n)
 app.directive('tooltip', Tooltip)
 
-await initializeI18n()
+async function bootstrap(): Promise<void> {
+  await initializeI18n()
+  app.mount('#app')
+}
 
-app.mount('#app')
+void bootstrap()
