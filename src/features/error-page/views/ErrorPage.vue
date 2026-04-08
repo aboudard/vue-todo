@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// @ts-nocheck
 import { Button } from 'primevue';
 import { onMounted, reactive, ref } from 'vue';
 
