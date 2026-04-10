@@ -13,9 +13,18 @@ import App from './App.vue'
 import router from './app/router'
 import { i18n, initializeI18n } from './i18n'
 import { myPreset } from './my-preset'
+import * as Sentry from "@sentry/vue";
 
 const app = createApp(App)
 const MyPreset = definePreset(Material, myPreset)
+
+Sentry.init({
+  app,
+  dsn: "https://6b2473d76b58d8000f620a2e893c12e4@o439212.ingest.us.sentry.io/4511149517635584",
+  // Setting this option to true will send default PII data to Sentry.
+  // For example, automatic IP address collection on events
+  sendDefaultPii: true
+});
 
 app.use(createPinia())
 app.use(router)

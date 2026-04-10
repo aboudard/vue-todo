@@ -48,6 +48,11 @@ const items = ref([
     icon: 'pi pi-check-square',
     route: '/prime-forms',
   },
+  {
+    label: 'Error page',
+    icon: 'pi pi-exclamation-triangle',
+    route: '/error-page',
+  },
 ])
 const { locale } = useI18n()
 const selectedLang = ref(locale.value)

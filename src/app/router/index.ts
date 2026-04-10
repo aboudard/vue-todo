@@ -65,6 +65,11 @@ const appRoutes: AppRoute[] = [
     name: 'prime-forms',
     component: () => import('@/features/prime-forms/views/PrimeForms.vue'),
   },
+  {
+    path: '/error-page',
+    name: 'error-page',
+    component: () => import('@/features/error-page/views/ErrorPage.vue'),
+  },
 ]
 
 const router = createRouter({
